@@ -1,0 +1,83 @@
+import Characters
+
+package Races
+
+type Race
+
+disjoint genset TypesOfRaces {
+    general Character
+    categorizer Race
+    specifics Elf, Orc, Human, HighElf
+}
+
+subkind Elf (instanceOf Race) specializes Characters.Character {
+    label {
+        @pt-br "Elfo"
+    }
+    description {
+        @pt-br "Elfos são divindades maiores da natureza e da fertilidade. Os elfos são geralmente mostrados como jovens de grande beleza vivendo entre as florestas, sob a terra, em fontes e outros lugares naturais. São retratados como seres sensíveis, de longa vida ou imortalidade, com poderes mágicos e grande ligação com a natureza."
+    }
+}
+
+subkind Orc (instanceOf Race) specializes Characters.Character {
+    label {
+        @pt-br "Orc"
+    }
+    description {
+        @pt-br "Orc, ork, orco ou orque (termo vindo do latim Orcus, um dos títulos de Plutão, o senhor do mundo dos mortos), aparece nas línguas germânicas e nos contos de fantasia medieval como uma criatura deformada e forte, que combate contra as forças do bem. Este conceito foi popularizado nos romances de Tolkien, O Hobbit e O Senhor dos Anéis, e virou recorrente em jogos de RPG de mesa ou RPG eletrônico, como D&D, World of Warcraft, Lineage II, Tibia, Grand Chase, The Lord of the Rings Online e Ragnarok Online, no entanto, não aparecem como criaturas maléficas na franquia The Elder Scrolls ou em World of Warcraft, sendo nesses jogos, uma raça semelhante aos homens."
+    }
+}
+
+subkind Human (instanceOf Race) specializes Characters.Character {
+    label {
+        @pt-br "Humano"
+    }
+    description {
+        @pt-br "Humanos são a raça mais comum em muitos mundos de fantasia. Eles são conhecidos por sua adaptabilidade, ambição e diversidade cultural. Geralmente possuem uma vida útil mais curta em comparação com outras raças como elfos e anões."
+    }
+}
+
+subkind HighElf (instanceOf Race) specializes Elf {
+    label {
+        @pt-br "Alto Elfo"
+    }
+    description {
+        @pt-br "Altos Elfos são frequentemente retratados como mais inteligentes e mágicos do que outros elfos. Eles geralmente vivem em cidades élficas isoladas e possuem uma conexão profunda com a magia arcana e as artes."
+    }
+}
+
+subkind DarkElf (instanceOf Race) specializes Elf {
+    label {
+        @pt-br "Elfo Negro"
+    }
+    description {
+        @pt-br "Elfos Negros, também conhecidos como Drow em alguns cenários, são geralmente retratados como habitantes do subterrâneo com uma sociedade sombria e matriarcal. Eles são frequentemente associados à escuridão, venenos e magia negra."
+    }
+}
+
+subkind Gnome (instanceOf Race) specializes Characters.Character {
+    label {
+        @pt-br "Gnomo"
+    }
+    description {
+        @pt-br "Gnomos são criaturas pequenas e inteligentes, conhecidas por sua curiosidade, inventividade e habilidade em engenharia e tecnologia. Eles geralmente são amigáveis e excêntricos, com uma paixão por conhecimento e invenções."
+    }
+}
+
+subkind Troll (instanceOf Race) specializes Characters.Character {
+    label {
+        @pt-br "Troll"
+    }
+    description {
+        @pt-br "Trolls são criaturas grandes e fortes, frequentemente com pele verde ou acinzentada, presas proeminentes e, em algumas lendas, a capacidade de se regenerar rapidamente. Eles podem variar de tribos selvagens a seres mais civilizados, dependendo do universo de fantasia."
+    }
+}
+
+subkind Undead (instanceOf Race) specializes Characters.Character {
+    label {
+        @pt-br "Morto-vivo"
+    }
+    description {
+        @pt-br "Mortos-vivos são seres que já estiveram vivos, mas foram reanimados por meios mágicos ou sobrenaturais. Eles podem variar de esqueletos e zumbis a fantasmas e vampiros, e geralmente não possuem as mesmas necessidades ou emoções dos seres vivos."
+    }
+}

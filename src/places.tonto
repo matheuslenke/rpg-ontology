@@ -1,0 +1,13 @@
+package Places
+
+kind Place
+
+subkind Realm specializes Place
+
+subkind Dimension specializes Place
+
+subkind Country specializes Place
+
+subkind City specializes Place
+
+subkind Village specializes Place

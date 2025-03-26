@@ -1,0 +1,14 @@
+package Items
+
+kind Item
+
+kind Inventory {
+    label {
+        @pt-br "Inventário"
+    }
+    description {
+        @pt-br "O inventário é aonde o personagem armazena e manipula seus items"
+    }
+
+    @memberOf [1] <>-- containsItems -- [0..*] Item
+}

@@ -1,0 +1,20 @@
+import Characters
+
+package classes
+
+type Class
+
+disjoint genset TypesOfClasses {
+    general Character
+    categorizer Class
+    specifics Warrior
+}
+
+subkind Warrior (instanceOf Class) specializes Characters.Character {
+    label {
+        @pt-br "Guerreiro"
+    }
+    description {
+        @pt-br ""
+    }
+}

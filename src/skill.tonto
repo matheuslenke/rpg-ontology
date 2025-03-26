@@ -1,0 +1,33 @@
+package skills
+
+mode Skill {
+    label {
+        @pt-br "Habilidade"
+    }
+    description {
+        @pt-br "Representa uma habilidade física ou mágica que um personagem pode utilizar em combate"
+    }
+    level: number
+    _type: SkillType [1..*]
+}
+
+enum SkillType {
+    Sacred,
+    Fire,
+    Ice,
+    Poison,
+    Evil,
+    Forbidden,
+    Protection
+}
+
+type Attribute
+
+quality Strength (instanceOf Attribute) {
+    qualityValue: number
+}
+quality Intelligence (instanceOf Attribute)
+quality Agility (instanceOf Attribute)
+quality Wisdom (instanceOf Attribute)
+quality Vitality (instanceOf Attribute)
+quality Charisma (instanceOf Attribute)

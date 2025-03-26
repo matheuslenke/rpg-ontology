@@ -1,0 +1,10 @@
+{
+    "projectName": "rpg-ontology",
+    "displayName": "RPG Ontology",
+    "authors": ["Matheus Lenke Coutinho", "Gabriel Zonatelli"],
+    "license": "MIT",
+    "dependencies": {},
+    "version": "1.0.0",
+    "outFolder": "out",
+    "publisher": "NEMO"
+}

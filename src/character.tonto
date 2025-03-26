@@ -1,0 +1,81 @@
+import Races
+import skills
+import Items
+
+package Characters
+
+kind Individual {
+    label {
+        @pt-br "Indivíduo"
+    }
+    description {
+        @pt-br "Um indivíduo que é um ser vivo e está presente no universo"
+    }
+
+    name: string
+    birthDate: date { const }
+    (natives) [*] -- isBornIn -- [1] ({const} birthplace) Place
+    (nativeSpeakers) [*] -- hasMotherTongue -- [1] (motherTongue) Language
+    (speakers) [*] -- speaks -- [0..*] (languagesSpoken) Language
+    alignment: Alignment
+    height: number
+}
+
+kind Language {
+    isAlive: boolean
+}
+
+datatype Coordinate {
+    lat: number
+    long: number
+}
+
+kind Place {
+    name: string
+    position: Coordinate
+}
+
+enum Alignment {
+    LawfulGood,
+    LawfulNeutral,
+    LawfulEvil,
+    NeutralGood,
+    TrueNeutral,
+    NeutralEvil,
+    ChaoticGood,
+    ChaoticNeutral,
+    ChaoticEvil
+}
+
+subkind Monster specializes Individual
+
+subkind Character specializes Individual {
+    label {
+        @pt-br "Personagem"
+    }
+    description {
+        @pt-br "Um personagem é um ser de alguma raça específica e que está vivo no universo"
+    }
+
+    level: number
+
+    [*] -- is -- [1..2] Race
+
+    [*] -- hasInventory -- [1] Items.Inventory
+    [*] -- hasSkills -- [0..*] skills.Skill
+    @characterization [1] -- hasStrengh -- [1] skills.Strength
+    @characterization [1] -- hasIntelligence -- [1] skills.Intelligence
+}
+
+subkind PlayableCharacter specializes Character
+subkind Non-PlayableCharacter specializes Character
+
+role Worker specializes Character {
+    label {
+        @pt-br "Trabalhador"
+    }
+}
+
+phase AliveIndividual specializes Individual
+phase UndeadIndividual specializes Individual
+phase DeadIndividual specializes Individual

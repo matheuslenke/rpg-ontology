@@ -1,0 +1,121 @@
+import Characters
+import skills
+
+package Profession
+
+enum ProfessionSkillLevel {
+    Dummy,
+    Beginner,
+    Intermediate,
+    Advanced
+}
+
+type Profession {
+    label {
+        @pt-br "Profissão"
+    }
+    description {
+        @pt-br "É um tipo de Personagem definido por habilidades relacionadas à uma determinada área"
+    }
+
+    level: ProfessionSkillLevel
+
+    [*] -- requiresSkills -- [0..*] skills.Skill
+    (professions) [*] -- [1..*] ({ ordered } mostImportantAttributes) skills.Attribute 
+}
+
+genset TypesOfProfession {
+    general Characters.Character
+    categorizer Profession
+    specifics Blacksmith
+}
+
+phase Blacksmith (instanceOf Profession) specializes Characters.Character {
+     label {
+         @pt-br "Ferreiro"
+     }
+     description {
+         @pt-br "Um artesão capaz de executar competentemente a forja e reparo de objetos de metal, como armas, armaduras e ferramentas. O indivíduo é um ferreiro enquanto possui as habilidades necessárias para executar tais tarefas."
+     }
+ }
+
+phase Herbalist (instanceOf Profession) specializes Characters.Character {
+     label {
+         @pt-br "Herbalista"
+     }
+     description {
+         @pt-br "Um indivíduo com conhecimento em plantas e ervas, utilizando-as para fins medicinais, culinários ou outros."
+     }
+ }
+
+phase Tailorist (instanceOf Profession) specializes Characters.Character {
+     label {
+         @pt-br "Alfaiate"
+     }
+     description {
+         @pt-br "Um artesão especializado na confecção, reparo e alteração de roupas e vestimentas."
+     }
+ }
+
+phase PotionBrewer (instanceOf Profession) specializes Characters.Character {
+     label {
+         @pt-br "Mestre de Poções"
+     }
+     description {
+         @pt-br "Um especialista na arte de misturar ingredientes para criar poções com efeitos mágicos ou alquímicos."
+     }
+ }
+
+phase Merchant (instanceOf Profession) specializes Characters.Character {
+     label {
+         @pt-br "Mercador"
+     }
+     description {
+         @pt-br "Um indivíduo envolvido na compra e venda de bens e serviços."
+     }
+ }
+
+phase Guard (instanceOf Profession) specializes Characters.Character {
+     label {
+         @pt-br "Guarda"
+     }
+     description {
+         @pt-br "Um indivíduo responsável por proteger pessoas, lugares ou propriedades."
+     }
+ }
+
+phase Scholar (instanceOf Profession) specializes Characters.Character {
+     label {
+         @pt-br "Erudito"
+     }
+     description {
+         @pt-br "Uma pessoa dedicada ao estudo e ao conhecimento em uma ou mais áreas."
+     }
+ }
+
+phase Farmer (instanceOf Profession) specializes Characters.Character {
+     label {
+         @pt-br "Fazendeiro"
+     }
+     description {
+         @pt-br "Um indivíduo que cultiva a terra e cria animais para obter alimento e outros recursos."
+     }
+ }
+
+phase Miner (instanceOf Profession) specializes Characters.Character {
+     label {
+         @pt-br "Minerador"
+     }
+     description {
+         @pt-br "Um trabalhador que extrai minerais e outros materiais valiosos do subsolo."
+     }
+ }
+
+phase Carpenter (instanceOf Profession) specializes Characters.Character {
+     label {
+         @pt-br "Carpinteiro"
+     }
+     description {
+         @pt-br "Um artesão que trabalha com madeira, construindo, reparando e instalando estruturas e objetos."
+     }
+ }
