@@ -1,7 +1,108 @@
 package Items
 
+// ---------------     Items     ---------------
 kind Item
 
+type EquippableItem
+
+disjoint genset ItemsToEquip {
+    general Item
+    categorizer EquippableItem
+    specifics Weapon, Armor, Amulet
+}
+
+
+type ConsumableItem
+
+disjoint genset  ItemsToConsume {
+    general Item
+    categorizer ConsumableItem
+    specifics Food, Scroll, Potion
+}
+
+disjoint complete genset TypesOfItems {
+    general Item
+    specifics EquippableItem, ConsumableItem
+}
+
+
+// ---------     Weapons     ---------
+subkind Weapon specializes Item
+
+subkind OneHandWeapon specializes Weapon
+subkind TwoHandWeapon specializes Weapon
+
+disjoint complete genset TypesOfWeapons {
+    general Weapon
+    specifics OneHandWeapon, TwoHandWeapon
+}
+
+
+subkind Knife specializes OneHandWeapon
+subkind Sword specializes OneHandWeapon
+subkind Axel specializes OneHandWeapon
+subkind Shield specializes OneHandWeapon
+
+disjoint complete genset TypesOfOneHandWeapon {
+    general OneHandWeapon
+    specifics Knife, Sword, Axel, Shield
+}
+
+
+subkind TwoKnifes specializes TwoHandWeapon
+subkind HeavySword specializes TwoHandWeapon
+subkind HeavyAxel specializes TwoHandWeapon
+
+disjoint complete genset TypesOfTwoHandWeapon {
+    general TwoHandWeapon
+    specifics TwoKnifes, HeavySword, HeavyAxel
+}
+
+// ---------     Armor     ---------
+subkind Armor specializes Item
+
+subkind Helmet specializes Armor
+subkind Chestplate specializes Armor
+subkind Gloves specializes Armor
+subkind Leggings specializes Armor
+subkind Boots specializes Armor
+
+disjoint complete genset PartsOfArmor {
+    general Armor
+    specifics Helmet, Chestplate, Gloves, Leggings, Boots
+}
+
+// ---------     Amulet     ---------
+subkind Amulet specializes Item
+
+subkind Ring specializes Amulet
+subkind Necklace specializes Amulet
+
+disjoint complete genset TypesOfAmulets {
+    general Amulet
+    specifics Ring, Necklace
+}
+
+// ---------     Potion     ---------
+subkind Potion specializes Item
+
+subkind LifePotion specializes Potion
+subkind StaminaPotion specializes Potion
+subkind ManaPotion specializes Potion
+subkind SkillPotion specializes Potion
+
+disjoint complete genset TypesOfPotion {
+    general Potion
+    specifics LifePotion, StaminaPotion, ManaPotion, SkillPotion
+}
+
+// ---------     Others     ---------
+subkind Food specializes Item
+subkind Scroll specializes Item
+
+
+
+// ---------------     Inventory     ---------------
 kind Inventory {
     label {
         @pt-br "Inventário"
@@ -11,4 +112,16 @@ kind Inventory {
     }
 
     @memberOf [1] <>-- containsItems -- [0..*] Item
+}
+
+subkind Bagpack specializes Inventory {
+    label {
+        @pt-br "Mochila"
+    }
+    description {
+        @pt-br "A mochila é um inventário em que o personagem carrega consigo"
+    }
+    slots: number
+    isFull: boolean
+    isHeavy: boolean
 }
