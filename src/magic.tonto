@@ -1,3 +1,8 @@
 package Magic
 
 kind Magic
+
+subkind DarkMagic specializes Magic
+subkind SacredMagic specializes Magic
+subkind ElementalMagic specializes Magic
+subkind SpiritualMagic specializes Magic

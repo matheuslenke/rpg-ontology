@@ -1,6 +1,14 @@
 package Places
 
-kind Place
+datatype Coordinate {
+    lat: number
+    long: number
+}
+
+kind Place {
+    name: string
+    position: Coordinate
+}
 
 subkind Realm specializes Place
 

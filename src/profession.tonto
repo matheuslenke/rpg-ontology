@@ -1,5 +1,5 @@
 import Characters
-import skills
+import Skills
 
 package Profession
 

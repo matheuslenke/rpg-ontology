@@ -1,4 +1,4 @@
-package skills
+package Skills
 
 mode Skill {
     label {
@@ -12,6 +12,12 @@ mode Skill {
 }
 
 enum SkillType {
+    label {
+        @pt-br "Tipo de Habilidade"
+    }
+    description {
+        @pt-br "Representa o tipo de habilidade, como física, mágica, sagrada, etc."
+    }
     Sacred,
     Fire,
     Ice,
@@ -21,13 +27,30 @@ enum SkillType {
     Protection
 }
 
-type Attribute
+type Attribute {
+    label {
+        @pt-br "Atributo"
+    }
+    description {
+        @pt-br "Representa um atributo de um personagem, como força, inteligência, agilidade, etc."
+    }
+}
 
 quality Strength (instanceOf Attribute) {
     qualityValue: number
 }
-quality Intelligence (instanceOf Attribute)
-quality Agility (instanceOf Attribute)
-quality Wisdom (instanceOf Attribute)
-quality Vitality (instanceOf Attribute)
-quality Charisma (instanceOf Attribute)
+quality Intelligence (instanceOf Attribute) {
+    qualityValue: number
+}
+quality Agility (instanceOf Attribute) {
+    qualityValue: number
+}
+quality Wisdom (instanceOf Attribute) {
+    qualityValue: number
+}
+quality Vitality (instanceOf Attribute) {
+    qualityValue: number
+}
+quality Charisma (instanceOf Attribute) {
+    qualityValue: number
+}

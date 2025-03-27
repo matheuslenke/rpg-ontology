@@ -1,6 +1,7 @@
 import Races
-import skills
+import Skills
 import Items
+import Places
 
 package Characters
 
@@ -14,7 +15,7 @@ kind Individual {
 
     name: string
     birthDate: date { const }
-    (natives) [*] -- isBornIn -- [1] ({const} birthplace) Place
+    (natives) [*] -- isBornIn -- [1] ({const} birthplace) Places.Place
     (nativeSpeakers) [*] -- hasMotherTongue -- [1] (motherTongue) Language
     (speakers) [*] -- speaks -- [0..*] (languagesSpoken) Language
     alignment: Alignment
@@ -22,17 +23,19 @@ kind Individual {
 }
 
 kind Language {
-    isAlive: boolean
-}
+    label {
+        @pt-br "Língua"
+    }
+    description {
+        @pt-br "Um sistema estruturado de comunicação usado por personagens e criaturas para interagir entre si"
+    }
 
-datatype Coordinate {
-    lat: number
-    long: number
-}
-
-kind Place {
     name: string
-    position: Coordinate
+    isAlive: boolean
+    difficulty: number
+    writingSystem: string
+    (speakers) [*] -- hasDialect -- [0..*] (dialects) Language
+    (originRace) [0..*] -- originatedFrom -- [0..1] Races.Race
 }
 
 enum Alignment {
