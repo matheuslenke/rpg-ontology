@@ -1,8 +1,65 @@
 package Magic
 
-kind Magic
+kind Magic {
+    label {
+        @pt-br "Magia"
+        @en "Magic"
+    }
+    description {
+        @pt-br "Magia representa o uso de forças ou energias sobrenaturais para produzir efeitos que transcendem as leis naturais percebidas. É a fonte de feitiços, encantamentos, rituais e outros fenômenos místicos, frequentemente categorizada em diferentes escolas, domínios ou fontes de poder."
+        @en "Magic represents the use of supernatural forces or energies to produce effects that transcend perceived natural laws. It is the source of spells, enchantments, rituals, and other mystical phenomena, often categorized into different schools, domains, or sources of power."
+    }
+    // --- Attributes ---
+    effectDescription: string     // Descrição textual do resultado ou consequência da magia.
+    manaCost: number            // Custo de recurso (mana, energia, vida, etc.) para usar a magia.
+    castingTime: string         // Tempo necessário para conjurar (ex: 'Instantâneo', '1 Ação', '1 Minuto').
+    range: string               // Alcance máximo da magia (ex: 'Pessoal', 'Toque', '30 metros').
+    duration: string            // Duração do efeito (ex: 'Instantâneo', 'Concentração, até 1 min', '1 hora').
+    targetType: string          // Tipo de alvo afetado (ex: 'Pessoal', 'Criatura', 'Objeto', 'Área').
+    requiresConcentration: boolean // Se requer concentração do conjurador para manter o efeito.
+}
 
-subkind DarkMagic specializes Magic
-subkind SacredMagic specializes Magic
-subkind ElementalMagic specializes Magic
-subkind SpiritualMagic specializes Magic
+
+subkind DarkMagic specializes Magic {
+    label {
+        @pt-br "Magia Negra" // Ou Magia Sombria
+        @en "Dark Magic" // Or Shadow Magic
+    }
+    description {
+        @pt-br "Magia Negra (ou Sombria) é um tipo de magia frequentemente associada a forças proibidas, tabus ou malévolas. Envolve tipicamente necromancia (controle de mortos-vivos), maldições, manipulação de sombras ou energia negativa, drenagem de vida, e pactos com entidades obscuras. Seu uso pode ter consequências perigosas ou moralmente questionáveis."
+        @en "Dark Magic (or Shadow Magic) is a type of magic often associated with forbidden, taboo, or malevolent forces. It typically involves necromancy (control of the undead), curses, manipulation of shadows or negative energy, life drain, and pacts with dark entities. Its use can have dangerous or morally questionable consequences."
+    }
+}
+
+subkind SacredMagic specializes Magic {
+    label {
+        @pt-br "Magia Sagrada" // Ou Magia Divina
+        @en "Sacred Magic" // Or Divine Magic
+    }
+    description {
+        @pt-br "Magia Sagrada (ou Divina) deriva seu poder de divindades, fé fervorosa, ou energias cósmicas inerentemente boas ou ordenadas. É comumente usada para curar ferimentos, proteger aliados, abençoar, purificar, exorcizar ou destruir forças do mal (especialmente mortos-vivos e extraplanares malignos) e manipular luz ou energia sagrada."
+        @en "Sacred Magic (or Divine Magic) derives its power from deities, fervent faith, or inherently good or ordered cosmic energies. It is commonly used to heal wounds, protect allies, bless, purify, exorcise or destroy evil forces (especially undead and evil outsiders), and manipulate holy light or energy."
+    }
+}
+
+subkind ElementalMagic specializes Magic {
+    label {
+        @pt-br "Magia Elemental"
+        @en "Elemental Magic"
+    }
+    description {
+        @pt-br "Magia Elemental envolve a invocação, manipulação e controle direto das forças e substâncias fundamentais da natureza, como fogo, água, terra e ar. Permite criar ou controlar chamas, ondas, rochas, ventos, relâmpagos, gelo, etc., para diversos fins (ataque, defesa, utilidade)."
+        @en "Elemental Magic involves the invocation, manipulation, and direct control of the fundamental forces and substances of nature, such as fire, water, earth, and air. It allows creating or controlling flames, waves, rocks, winds, lightning, ice, etc., for various purposes (attack, defense, utility)."
+    }
+}
+
+subkind SpiritualMagic specializes Magic {
+    label {
+        @pt-br "Magia Espiritual" // Ou Magia Anímica
+        @en "Spiritual Magic" // Or Spirit Magic
+    }
+    description {
+        @pt-br "Magia Espiritual lida com a interação, invocação ou manipulação de espíritos (ancestrais, elementais, da natureza), almas, ou a própria energia vital (chi/ki). Pode envolver comunicação com o além, práticas xamânicas, projeção astral, fortalecimento da alma ou manipulação da força vital para cura ou combate."
+        @en "Spiritual Magic deals with the interaction, summoning, or manipulation of spirits (ancestral, elemental, nature), souls, or life energy itself (chi/ki). It can involve communication with the beyond, shamanic practices, astral projection, soul strengthening, or manipulation of life force for healing or combat."
+    }
+}

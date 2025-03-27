@@ -8,9 +8,11 @@ package Characters
 kind Individual {
     label {
         @pt-br "Indivíduo"
+        @en "Individual"
     }
     description {
-        @pt-br "Um indivíduo que é um ser vivo e está presente no universo"
+        @pt-br "Um indivíduo que é um ser vivo ou outrora vivo e está presente no universo."
+        @en "An individual who is or was once a living being and is present in the universe."
     }
 
     name: string
@@ -25,20 +27,30 @@ kind Individual {
 kind Language {
     label {
         @pt-br "Língua"
+        @en "Language"
     }
     description {
-        @pt-br "Um sistema estruturado de comunicação usado por personagens e criaturas para interagir entre si"
+        @pt-br "Um sistema estruturado de comunicação usado por personagens e criaturas para interagir entre si."
+        @en "A structured system of communication used by characters and creatures to interact with each other."
     }
 
     name: string
     isAlive: boolean
     difficulty: number
     writingSystem: string
-    (speakers) [*] -- hasDialect -- [0..*] (dialects) Language
-    (originRace) [0..*] -- originatedFrom -- [0..1] Races.Race
+    (speakers) [*] -- hasDialect -- [0..*] (dialects) Language // hasDialect represents the dialects of the language
+    (originRace) [0..*] -- originatedFrom -- [0..1] Races.Race // originatedFrom represents where the language originated from
 }
 
 enum Alignment {
+    label {
+        @pt-br "Alinhamento"
+        @en "Alignment"
+    }
+    description {
+        @pt-br "Um alinhamento é um conjunto de valores que define o comportamento moral e ético de um personagem."
+        @en "An alignment is a set of values that defines a character's moral and ethical behavior."
+    }
     LawfulGood,
     LawfulNeutral,
     LawfulEvil,
@@ -50,14 +62,25 @@ enum Alignment {
     ChaoticEvil
 }
 
-subkind Monster specializes Individual
+subkind Monster specializes Individual {
+    label {
+        @pt-br "Monstro"
+        @en "Monster"
+    }
+    description {
+        @pt-br "Um monstro é um ser, frequentemente não-humanoide ou bestial, que pode representar uma ameaça ou desafio, muitas vezes com tendências hostis ou instintivas."
+        @en "A monster is a being, often non-humanoid or bestial, that may pose a threat or challenge, often with hostile or instinctual tendencies."
+    }
+}
 
 subkind Character specializes Individual {
     label {
         @pt-br "Personagem"
+        @en "Character"
     }
     description {
-        @pt-br "Um personagem é um ser de alguma raça específica e que está vivo no universo"
+        @pt-br "Um personagem é um indivíduo com agência, personalidade e papel dentro da narrativa ou mundo do jogo, geralmente pertencente a uma raça específica."
+        @en "A character is an individual with agency, personality, and a role within the narrative or game world, usually belonging to a specific race."
     }
 
     level: number
@@ -74,15 +97,67 @@ subkind Character specializes Individual {
     @characterization [1] -- hasWisdom -- [1] Skills.Wisdom
 }
 
-subkind PlayableCharacter specializes Character
-subkind Non-PlayableCharacter specializes Character
+subkind PlayableCharacter specializes Character {
+    label {
+        @pt-br "Personagem Jogável"
+        @en "Playable Character"
+    }
+    description {
+        @pt-br "Um personagem jogável (PC) é um personagem que é diretamente controlado por um jogador."
+        @en "A playable character (PC) is a character that is directly controlled by a player."
+    }
+}
+subkind NonPlayableCharacter specializes Character {
+    label {
+        @pt-br "Personagem Não Jogável"
+        @en "Non-Playable Character"
+    }
+    description {
+        @pt-br "Um personagem não jogável (NPC) é um personagem controlado pelo mestre do jogo ou pelo sistema, interagindo com os PCs mas não controlado por um jogador."
+        @en "A non-playable character (NPC) is a character controlled by the game master or the system, interacting with the PCs but not controlled by a player."
+    }
+}
 
 role Worker specializes Character {
     label {
         @pt-br "Trabalhador"
+        @en "Worker"
+    }
+    description {
+        @pt-br "Um trabalhador é um personagem definido por sua ocupação ou profissão, engajado em alguma forma de trabalho."
+        @en "A worker is a character defined by their occupation or profession, engaged in some form of labor."
     }
 }
 
-phase AliveIndividual specializes Individual
-phase UndeadIndividual specializes Individual
-phase DeadIndividual specializes Individual
+phase AliveIndividual specializes Individual {
+    label {
+        @pt-br "Indivíduo Vivo"
+        @en "Alive Individual"
+    }
+    description {
+        @pt-br "Um indivíduo vivo é um indivíduo que está atualmente no estado de vida."
+        @en "An alive individual is an individual who is currently in the state of being alive."
+    }
+}
+
+phase UndeadIndividual specializes Individual {
+    label {
+        @pt-br "Indivíduo Morto-Vivo"
+        @en "Undead Individual"
+    }
+    description {
+        @pt-br "Um indivíduo morto-vivo é um ser que morreu mas foi reanimado por forças sobrenaturais, existindo em um estado entre a vida e a morte."
+        @en "An undead individual is a being that has died but has been reanimated by supernatural forces, existing in a state between life and death."
+    }
+}
+
+phase DeadIndividual specializes Individual {
+    label {
+        @pt-br "Indivíduo Morto"
+        @en "Dead Individual"
+    }
+    description {
+        @pt-br "Um indivíduo morto é um indivíduo que cessou suas funções vitais e não está vivo nem morto-vivo."
+        @en "A dead individual is an individual who has ceased vital functions and is neither alive nor undead." 
+    }
+}

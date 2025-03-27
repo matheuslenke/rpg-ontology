@@ -1,19 +1,49 @@
 package Items
 
 // ---------------     Items     ---------------
-kind Item
+kind Item {
+    label {
+        @pt-br "Item"
+        @en "Item"
+    }
+    description {
+        @pt-br "Um item é qualquer objeto que pode ser possuído, carregado ou armazenado por um personagem."
+        @en "An item is any object that can be possessed, carried, or stored by a character."
+    }
+    name: string        // Nome do item.
+    details: string     // Descrição detalhada ou 'flavor text' do item.
+    weight: number      // Peso do item, afetando capacidade de carga.
+}
 
-type EquippableItem
+type Equipment specializes Item { 
+    label {
+        @pt-br "Item equipável"
+        @en "Equipment" 
+    }
+    description {
+        @pt-br "Um item equipável é qualquer item projetado para ser vestido ou empunhado por um personagem para obter um benefício funcional ou estatístico."
+        @en "An equippable item is any item designed to be worn or wielded by a character to gain a functional or statistical benefit."
+    }
+}
 
 disjoint genset ItemsToEquip {
     general Item
-    categorizer EquippableItem
-    specifics Weapon, Armor, Amulet
+    categorizer Equipment
+    specifics Weapon, Armor, Accessory
 }
 
-type ConsumableItem
+type ConsumableItem specializes Item {
+    label {
+        @pt-br "Item consumível"
+        @en "Consumable Item"
+    }
+    description {
+        @pt-br "Um item consumível é qualquer item que é gasto ou destruído ao ser utilizado para produzir seu efeito."
+        @en "A consumable item is any item that is spent or destroyed upon being used to produce its effect."
+    }
+}
 
-disjoint genset  ItemsToConsume {
+disjoint genset ItemsToConsume {
     general Item
     categorizer ConsumableItem
     specifics Food, Scroll, Potion
@@ -21,15 +51,46 @@ disjoint genset  ItemsToConsume {
 
 disjoint complete genset TypesOfItems {
     general Item
-    specifics EquippableItem, ConsumableItem
+    specifics Equipment, ConsumableItem
 }
 
 
 // ---------     Weapons     ---------
-subkind Weapon specializes Item
+// InstanceOf Equipment used here implies Weapon is a ROLE played by Equipment, which might be complex.
+// Simpler: 'subkind Weapon specializes Equipment' - Assuming this intent.
+subkind Weapon (instanceOf Equipment) specializes Item {
+    label {
+        @pt-br "Arma"
+        @en "Weapon"
+    }
+    description {
+        @pt-br "Uma arma é um tipo de equipamento projetado primariamente para ser usado em combate para atacar, infligir dano ou aplicar efeitos prejudiciais a oponentes."
+        @en "A weapon is a type of equipment primarily designed to be used in combat to attack, inflict damage, or apply detrimental effects to opponents."
+    }
+}
 
-subkind OneHandWeapon specializes Weapon
-subkind TwoHandWeapon specializes Weapon
+// InstanceOf Equipment implies OneHandWeapon is a role? Simpler: 'subkind OneHandWeapon specializes Weapon'
+subkind OneHandWeapon specializes Weapon {
+    label {
+        @pt-br "Arma de uma mão"
+        @en "One-Hand Weapon"
+    }
+    description {
+        @pt-br "Uma arma de uma mão é qualquer arma projetada para ser empunhada e utilizada efetivamente com apenas uma mão."
+        @en "A one-hand weapon is any weapon designed to be wielded and used effectively with only one hand."
+    }
+}
+// InstanceOf Equipment implies TwoHandWeapon is a role? Simpler: 'subkind TwoHandWeapon specializes Weapon'
+subkind TwoHandWeapon specializes Weapon {
+    label {
+        @pt-br "Arma de duas mãos"
+        @en "Two-Hand Weapon"
+    }
+    description {
+        @pt-br "Uma arma de duas mãos é qualquer arma que, devido ao seu tamanho, peso ou design, requer ambas as mãos para ser empunhada e utilizada efetivamente."
+        @en "A two-hand weapon is any weapon that, due to its size, weight, or design, requires both hands to be wielded and used effectively."
+    }
+}
 
 disjoint complete genset TypesOfWeapons {
     general Weapon
@@ -37,58 +98,282 @@ disjoint complete genset TypesOfWeapons {
 }
 
 
-subkind Knife specializes OneHandWeapon
-subkind Sword specializes OneHandWeapon
-subkind Axel specializes OneHandWeapon
-subkind Shield specializes OneHandWeapon
+subkind Knife specializes OneHandWeapon {
+    label {
+        @pt-br "Adaga"
+        @en "Dagger" // Changed label to common RPG term
+    }
+    description {
+        @pt-br "Uma adaga é uma arma branca curta, de lâmina geralmente pontiaguda e frequentemente de dois gumes, empunhada com uma mão. É valorizada pela sua rapidez, facilidade de ocultação e uso em ataques precisos ou furtivos."
+        @en "A dagger is a short bladed weapon, with a generally pointed blade and often double-edged, wielded with one hand. It is valued for its speed, ease of concealment, and use in precise or stealthy attacks."
+    }
+}
+
+subkind Sword specializes OneHandWeapon {
+    label {
+        @pt-br "Espada"
+        @en "Sword"
+    }
+    description {
+        @pt-br "Uma espada (de uma mão) é uma arma branca com uma lâmina longa, tipicamente reta e de um ou dois gumes, projetada para cortar e/ou estocar, empunhada com uma mão. É uma arma versátil comum em muitos cenários."
+        @en "A (one-handed) sword is a bladed weapon with a long blade, typically straight and single or double-edged, designed for cutting and/or thrusting, wielded with one hand. It is a versatile weapon common in many settings."
+    }
+}
+
+subkind Axe specializes OneHandWeapon {
+    label {
+        @pt-br "Machado"
+        @en "Axe" // Or "Hand Axe"
+    }
+    description {
+        @pt-br "Um machado (de uma mão) é uma arma consistindo de uma cabeça com lâmina afiada fixada a uma haste curta, empunhado com uma mão. É focado em causar dano por impacto e corte, sendo eficaz contra madeira ou armaduras."
+        @en "A (one-handed) axe is a weapon consisting of a bladed head fixed to a short haft, wielded with one hand. It is focused on causing damage through impact and chopping, effective against wood or armor."
+    }
+}
 
 disjoint complete genset TypesOfOneHandWeapon {
     general OneHandWeapon
-    specifics Knife, Sword, Axel, Shield
+    specifics Knife, Sword, Axe
 }
 
+subkind TwoKnifes specializes TwoHandWeapon {
+    label {
+        @pt-br "Adagas Duplas (Estilo)"
+        @en "Dual Daggers (Style)"
+    }
+    description {
+        @pt-br "Este termo ('Duas Adagas' ou 'Adagas Duplas') geralmente descreve o *estilo de combate* de empunhar uma adaga (Knife/Dagger) em cada mão, ou seja, usar duas 'Armas de Uma Mão' simultaneamente. Não representa um único item do tipo 'Arma de Duas Mãos'. (Ontologicamente, modelar isso como um subtipo de Arma de Duas Mãos é geralmente considerado incorreto; representa o uso de dois itens do tipo 'Adaga')."
+        @en "This term ('Two Daggers' or 'Dual Daggers') generally describes the *fighting style* of wielding a dagger (Knife/Dagger) in each hand, i.e., using two 'One-Hand Weapons' simultaneously. It does not represent a single 'Two-Hand Weapon' type item. (Ontologically, modeling this as a subtype of Two-Hand Weapon is generally considered incorrect; it represents the use of two 'Dagger' type items)."
+    }
+}
 
-subkind TwoKnifes specializes TwoHandWeapon
-subkind HeavySword specializes TwoHandWeapon
-subkind HeavyAxel specializes TwoHandWeapon
+subkind HeavySword specializes TwoHandWeapon {
+    label {
+        @pt-br "Espada Pesada"
+        @en "Heavy Sword" // Alternatives: Two-Handed Sword, Greatsword
+    }
+    description {
+        @pt-br "Uma espada pesada (ou espada de duas mãos / montante) é uma espada de grandes dimensões e peso, projetada para ser empunhada com ambas as mãos. Oferece maior alcance e um poder de impacto significativamente maior por golpe em comparação com espadas de uma mão, ao custo da velocidade e da impossibilidade de usar um escudo."
+        @en "A heavy sword (or two-handed sword / greatsword) is a sword of large size and weight, designed to be wielded with both hands. It offers greater reach and significantly higher impact power per strike compared to one-handed swords, at the cost of speed and the inability to use a shield."
+    }
+}
+
+subkind HeavyAxe specializes TwoHandWeapon {
+    label {
+        @pt-br "Machado Pesado"
+        @en "Heavy Axe" // Alternatives: Two-Handed Axe, Greataxe
+    }
+    description {
+        @pt-br "Um machado pesado (ou machado de duas mãos) possui uma cabeça de machado grande e/ou pesada em uma haste longa, exigindo o uso de ambas as mãos para controle e força máxima. É focado em desferir golpes devastadores com enorme poder de corte e impacto, excelente para romper defesas ou causar dano massivo."
+        @en "A heavy axe (or two-handed axe / greataxe) has a large and/or heavy axe head on a long haft, requiring the use of both hands for control and maximum force. It is focused on delivering devastating blows with enormous chopping and impact power, excellent for breaking defenses or causing massive damage."
+    }
+}
 
 disjoint complete genset TypesOfTwoHandWeapon {
     general TwoHandWeapon
-    specifics TwoKnifes, HeavySword, HeavyAxel
+    specifics TwoKnifes, HeavySword, HeavyAxe
 }
 
 // ---------     Armor     ---------
-subkind Armor specializes Item
+subkind Armor (instanceOf Equipment) specializes Item {
+    label {
+        @pt-br "Armadura"
+        @en "Armor"
+    }
+    description {
+        @pt-br "Armadura é um tipo de equipamento projetado para ser vestido ou equipado por um personagem a fim de fornecer proteção contra danos, aumentando sua defesa ou resistência." // Simplified PT
+        @en "Armor is a type of equipment designed to be worn or equipped by a character in order to provide protection against damage, increasing their defense or resistance." // Simplified EN
+    }
+}
 
-subkind Helmet specializes Armor
-subkind Chestplate specializes Armor
-subkind Gloves specializes Armor
-subkind Leggings specializes Armor
-subkind Boots specializes Armor
+subkind Shield specializes Armor {
+     label {
+        @pt-br "Escudo"
+        @en "Shield"
+    }
+    description {
+        @pt-br "Um escudo é uma peça de armadura defensiva empunhada em uma mão (geralmente a mão inábil). Sua função primária é interceptar ataques, bloqueando golpes ou projéteis para proteger o portador, podendo ocasionalmente ser usado para golpear ('shield bash')."
+        @en "A shield is a piece of defensive armor wielded in one hand (usually the off-hand). Its primary function is to intercept attacks, blocking strikes or projectiles to protect the wielder, and can occasionally be used for bashing ('shield bash')."
+    }
+}
 
+subkind Helmet specializes Armor {
+    label {
+        @pt-br "Capacete"
+        @en "Helmet"
+    }
+    description {
+        @pt-br "Um capacete é uma peça de armadura projetada especificamente para proteger a cabeça do usuário contra impactos, cortes e outras formas de dano direcionadas àquela área."
+        @en "A helmet is a piece of armor specifically designed to protect the user's head against impacts, cuts, and other forms of damage directed at that area."
+    }
+}
+
+subkind Chestplate specializes Armor {
+    label {
+        @pt-br "Peitoral"
+        @en "Chestplate" // Or Cuirass, Breastplate
+    }
+    description {
+        @pt-br "Um peitoral é a peça de armadura que cobre e protege o torso (peito e costas) do usuário, uma área crítica que abriga órgãos vitais. Geralmente fornece a maior parte da proteção defensiva de um conjunto de armadura."
+        @en "A chestplate is the piece of armor that covers and protects the user's torso (chest and back), a critical area housing vital organs. It generally provides the largest portion of defensive protection in an armor set."
+    }
+}
+
+subkind Gloves specializes Armor {
+    label {
+        @pt-br "Luvas"
+        @en "Gloves" // Or Gauntlets
+    }
+    description {
+        @pt-br "Luvas são peças de armadura que cobrem e protegem as mãos e, dependendo do design, podem estender-se aos pulsos ou antebraços. Variam de tecido reforçado a metal articulado."
+        @en "Gloves (or gauntlets) are pieces of armor that cover and protect the hands and, depending on the design, may extend to the wrists or forearms. They range from reinforced fabric to articulated metal."
+    }
+}
+
+subkind Leggings specializes Armor {
+    label {
+        @pt-br "Perneiras"
+        @en "Leggings" // Or Greaves, Legguards
+    }
+    description {
+        @pt-br "Perneiras são peças de armadura projetadas para proteger as pernas do usuário (normalmente coxas e/ou canelas). São essenciais para a proteção das partes inferiores do corpo em combate."
+        @en "Leggings (or greaves/legguards) are pieces of armor designed to protect the user's legs (usually thighs and/or shins). They are essential for protecting the lower body in combat."
+    }
+}
+
+subkind Boots specializes Armor {
+    label {
+        @pt-br "Botas"
+        @en "Boots"
+    }
+    description {
+        @pt-br "Botas são peças de armadura que cobrem e protegem os pés e, frequentemente, os tornozelos ou a parte inferior das canelas. Além da defesa, podem afetar a movimentação ou oferecer outras propriedades."
+        @en "Boots are pieces of armor that cover and protect the feet and often the ankles or lower shins. Besides defense, they can affect movement or offer other properties."
+    }
+}
+
+// PartsOfArmor genset seems redundant if these are just subtypes, but translating anyway.
 disjoint complete genset PartsOfArmor {
     general Armor
     specifics Helmet, Chestplate, Gloves, Leggings, Boots
 }
 
-// ---------     Amulet     ---------
-subkind Amulet specializes Item
+// ---------     Accessories     ---------
+subkind Accessory (instanceOf Equipment) specializes Item {
+    label {
+        @pt-br "Acessório"
+        @en "Accessory"
+     }
+    description {
+         @pt-br "Itens equipáveis que não são armas nem armaduras, geralmente fornecendo bônus ou habilidades, como jóias ou capas."
+         @en "Equippable items that are not weapons or armor, generally providing bonuses or abilities, such as jewelry or capes."
+    }
+}
 
-subkind Ring specializes Amulet
-subkind Necklace specializes Amulet
+subkind Amulet specializes Accessory {
+    label {
+        @pt-br "Amuleto"
+        @en "Amulet"
+    }
+    description {
+        @pt-br "Um amuleto é um objeto, frequentemente um pingente, jóia ou pequeno item, ao qual se atribuem propriedades mágicas, protetoras ou de sorte. Em RPGs, costuma ser um item equipável (muitas vezes no slot de pescoço) que concede bônus ou habilidades." // Removed internal note
+        @en "An amulet is an object, often a pendant, jewel, or small item, attributed with magical, protective, or lucky properties. In RPGs, it's usually an equippable item (often in the neck slot) that grants bonuses or abilities." // Removed internal note
+    }
+}
+
+subkind Ring specializes Accessory {
+    label {
+        @pt-br "Anel"
+        @en "Ring"
+    }
+    description {
+        @pt-br "Um anel é uma peça de joalheria circular usada em um dedo. Em jogos de RPG, anéis são frequentemente itens mágicos que concedem bônus passivos, habilidades ativas ou resistências ao portador." // Removed internal note
+        @en "A ring is a circular piece of jewelry worn on a finger. In RPGs, rings are often magical items that grant passive bonuses, active abilities, or resistances to the wearer." // Removed internal note
+    }
+}
+
+subkind Necklace specializes Accessory {
+    label {
+        @pt-br "Colar"
+        @en "Necklace"
+    }
+    description {
+        @pt-br "Um colar é um adorno ou peça de joalheria usado ao redor do pescoço. Pode consistir de uma corrente, cordão, contas, gemas ou conter um pingente (que pode ser um Amuleto). Em RPGs, é um slot comum para itens mágicos equipáveis."
+        @en "A necklace is an adornment or piece of jewelry worn around the neck. It can consist of a chain, cord, beads, gems, or contain a pendant (which might be an Amulet). In RPGs, it's a common slot for equippable magical items."
+    }
+}
 
 disjoint complete genset TypesOfAmulets {
-    general Amulet
+    general Amulet 
     specifics Ring, Necklace
 }
 
-// ---------     Potion     ---------
-subkind Potion specializes Item
+subkind Consumable specializes Item {
+    label {
+        @pt-br "Consumível"
+        @en "Consumable"
+    }
+    description {
+        @pt-br "Um item consumível é um tipo de item que é gasto, destruído ou perde seu efeito principal após uma ou um número limitado de utilizações. Exemplos comuns incluem poções, comidas, pergaminhos, reagentes alquímicos e munições."
+        @en "A consumable item is a type of item that is spent, destroyed, or loses its main effect after one or a limited number of uses. Common examples include potions, food, scrolls, alchemical reagents, and ammunition."
+    }
+}
 
-subkind LifePotion specializes Potion
-subkind StaminaPotion specializes Potion
-subkind ManaPotion specializes Potion
-subkind SkillPotion specializes Potion
+// ---------     Potion     ---------
+subkind Potion specializes Consumable {
+    label {
+        @pt-br "Poção"
+        @en "Potion"
+    }
+    description {
+        @pt-br "Uma poção é um item consumível, geralmente um líquido mágico ou alquímico contido em um frasco, que concede um efeito benéfico (ou às vezes prejudicial) temporário ou instantâneo ao personagem que a utiliza (normalmente bebendo-a)."
+        @en "A potion is a consumable item, usually a magical or alchemical liquid in a flask, which grants a beneficial (or sometimes harmful) temporary or instantaneous effect to the character who uses it (typically by drinking it)."
+    }
+}
+
+subkind LifePotion specializes Potion {
+    label {
+        @pt-br "Poção de Vida"
+        @en "Life Potion"
+    }
+    description {
+        @pt-br "Uma poção de vida, ou poção de cura, é um tipo de poção cujo efeito primário é restaurar os pontos de vida (HP, saúde) perdidos pelo personagem, seja instantaneamente ou ao longo de um curto período."
+        @en "A life potion, or healing potion, is a type of potion whose primary effect is to restore lost hit points (HP, health) to the character, either instantly or over a short period."
+    }
+}
+
+subkind StaminaPotion specializes Potion {
+    label {
+        @pt-br "Poção de Vigor"
+        @en "Stamina Potion"
+    }
+    description {
+        @pt-br "Uma poção de vigor (ou estamina/energia) restaura o recurso utilizado para ações físicas intensas, como correr, esquivar, bloquear ou usar certas habilidades marciais, permitindo que o personagem continue a executá-las."
+        @en "A stamina potion (or energy potion) restores the resource used for intense physical actions, such as running, dodging, blocking, or using certain martial abilities, allowing the character to continue performing them."
+    }
+}
+
+subkind ManaPotion specializes Potion {
+    label {
+        @pt-br "Poção de Mana"
+        @en "Mana Potion"
+    }
+    description {
+        @pt-br "Uma poção de mana restaura o recurso energético utilizado para conjurar feitiços ou usar habilidades mágicas (mana, poder arcano, etc.), permitindo que conjuradores continuem a usar suas magias."
+        @en "A mana potion restores the energy resource used for casting spells or using magical abilities (mana, arcane power, etc.), allowing spellcasters to continue using their magic."
+    }
+}
+
+subkind SkillPotion specializes Potion {
+    label {
+        @pt-br "Poção de Habilidade/Atributo"
+        @en "Skill/Attribute Potion"
+    }
+    description {
+        @pt-br "Uma poção de habilidade ou atributo concede um bônus temporário a um ou mais atributos base (ex: Força, Inteligência) ou perícias específicas (ex: Furtividade, Alquimia) do personagem. Elixires frequentemente se encaixam nesta categoria."
+        @en "A skill or attribute potion grants a temporary bonus to one or more base attributes (e.g., Strength, Intelligence) or specific skills (e.g., Stealth, Alchemy) of the character. Elixirs often fit into this category."
+    }
+}
 
 disjoint complete genset TypesOfPotion {
     general Potion
@@ -96,31 +381,52 @@ disjoint complete genset TypesOfPotion {
 }
 
 // ---------     Others     ---------
-subkind Food specializes Item
-subkind Scroll specializes Item
+subkind Food specializes Consumable {
+    label {
+        @pt-br "Comida"
+        @en "Food"
+    }
+    description {
+        @pt-br "Comida refere-se a itens consumíveis que podem ser ingeridos pelo personagem. Em RPGs, geralmente restauram uma pequena quantidade de vida ou vigor (muitas vezes ao longo do tempo) ou concedem bônus de status temporários ('buffs', como o estado 'bem alimentado')."
+        @en "Food refers to consumable items that can be ingested by the character. In RPGs, they generally restore a small amount of health or stamina (often over time) or grant temporary status bonuses ('buffs', like the 'well-fed' state)."
+    }
+}
 
-
+subkind Scroll specializes Consumable {
+    label {
+        @pt-br "Pergaminho"
+        @en "Scroll"
+    }
+    description {
+        @pt-br "Um pergaminho é um item consumível, tipicamente um rolo de papel ou material similar com inscrições (frequentemente mágicas). Permite ao usuário ativar um efeito específico (como conjurar um feitiço) uma única vez, após o qual o pergaminho é geralmente destruído ou se torna inerte."
+        @en "A scroll is a consumable item, typically a roll of paper or similar material with inscriptions (often magical). It allows the user to activate a specific effect (such as casting a spell) a single time, after which the scroll is usually destroyed or becomes inert."
+    }
+}
 
 // ---------------     Inventory     ---------------
 kind Inventory {
     label {
         @pt-br "Inventário"
+        @en "Inventory"
     }
     description {
-        @pt-br "O inventário é aonde o personagem armazena e manipula seus items"
+        @pt-br "O inventário representa o espaço ou sistema onde um personagem armazena e gerencia seus itens."
+        @en "The inventory represents the space or system where a character stores and manages their items."
     }
 
-    @memberOf [1] <>-- containsItems -- [0..*] Item
+    @memberOf [1] <>-- containsItems -- [0..*] Item // Represents items contained within the inventory
 }
 
 subkind Backpack specializes Inventory {
     label {
         @pt-br "Mochila"
+        @en "Backpack"
     }
     description {
-        @pt-br "A mochila é um inventário em que o personagem carrega consigo"
+        @pt-br "A mochila é um tipo de inventário (contêiner) que o personagem carrega consigo, permitindo armazenar itens adicionais, geralmente com limites de espaço ou peso."
+        @en "A backpack is a type of inventory (container) that the character carries, allowing them to store additional items, usually with space or weight limits."
     }
-    slots: number
-    isFull: boolean
-    isHeavy: boolean
+    slots: number     // Número de espaços/slots disponíveis na mochila.
+    isFull: boolean   // Indica se a mochila está cheia (sem slots livres).
+    isHeavy: boolean  // Indica se a mochila atingiu ou excedeu um limite de peso.
 }

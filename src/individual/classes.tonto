@@ -5,9 +5,11 @@ package Classes
 type Class {
     label {
         @pt-br "Classe"
+        @en "Class"
     }
     description {
         @pt-br "Em jogos de RPG, uma classe é uma categoria de personagens que compartilham habilidades e características comuns. Uma classe dá habilidades (ou perícias) exclusivas para o personagem de cada classe."
+        @en "In RPG games, a class is a category of characters who share common skills and characteristics. A class grants exclusive abilities (or proficiencies) to the character of that class."
     }
 }
 
@@ -20,116 +22,142 @@ disjoint genset TypesOfClasses {
 subkind Warrior (instanceOf Class) specializes Characters.Character {
     label {
         @pt-br "Guerreiro"
+        @en "Warrior"
     }
     description {
         @pt-br "O Guerreiro é uma classe de personagens típica de cenários de fantasia medieval, dentre os quais se destacam os jogos Dungeons & Dragons, também chamado de D&D e Pathfinder Roleplaying Game."
+        @en "The Warrior is a character class typical of medieval fantasy settings, prominent in games such as Dungeons & Dragons (also called D&D) and Pathfinder Roleplaying Game."
     }
 }
 
 subkind Mage (instanceOf Class) specializes Characters.Character {
     label {
         @pt-br "Mago"
+        @en "Mage"
     }
     description {
         @pt-br "O Mago é uma classe de personagem típica de cenários de fantasia, conhecida por sua maestria em magia e artes arcanas. Frequentemente utilizam sua inteligência ou sabedoria para lançar feitiços, manipular os elementos ou influenciar mentes. São proeminentes em jogos como Dungeons & Dragons (D&D) e Pathfinder Roleplaying Game."
+        @en "The Mage is a character class typical of fantasy settings, known for mastery in magic and arcane arts. They often use their intelligence or wisdom to cast spells, manipulate elements, or influence minds. They are prominent in games like Dungeons & Dragons (D&D) and Pathfinder Roleplaying Game."
     }
 }
 
 subkind Rogue (instanceOf Class) specializes Characters.Character {
     label {
-        @pt-br "Ladino" // Or "Ladrão", but "Ladino" is common in D&D Brazil
+        @pt-br "Ladino"
+        @en "Rogue"
     }
     description {
         @pt-br "O Ladino é uma classe focada em furtividade, agilidade e perícias. São mestres em se esconder nas sombras, desarmar armadilhas, abrir fechaduras e realizar ataques precisos e sorrateiros, geralmente contando com alta Destreza. Essenciais em jogos como D&D e World of Warcraft."
+        @en "The Rogue is a class focused on stealth, agility, and skills. They are masters of hiding in shadows, disarming traps, picking locks, and performing precise, sneaky attacks, generally relying on high Dexterity. Essential in games like D&D and World of Warcraft."
     }
 }
 
 subkind Cleric (instanceOf Class) specializes Characters.Character {
     label {
         @pt-br "Clérigo"
+        @en "Cleric"
     }
     description {
         @pt-br "O Clérigo é um agente de um poder divino (como um deus ou filosofia), canalizando energia sagrada. São conhecidos por curar ferimentos, proteger aliados com magia divina e punir inimigos (especialmente mortos-vivos), frequentemente utilizando Sabedoria. Uma classe fundamental em D&D e similar ao Sacerdote (Priest) em World of Warcraft."
+        @en "The Cleric is an agent of a divine power (such as a god or philosophy), channeling sacred energy. They are known for healing wounds, protecting allies with divine magic, and smiting foes (especially undead), often utilizing Wisdom. A fundamental class in D&D and similar to the Priest in World of Warcraft."
     }
 }
 
 subkind Ranger (instanceOf Class) specializes Characters.Character {
     label {
-        @pt-br "Ranger" // "Patrulheiro" is another translation, but Ranger is widely used
+        @pt-br "Ranger"
+        @en "Ranger"
     }
     description {
         @pt-br "O Ranger é um combatente habilidoso adaptado à vida selvagem e fronteiriça. São peritos em rastreamento, sobrevivência e combate à distância (frequentemente com arcos), utilizando Destreza e Sabedoria. Podem ter laços com a natureza, companheiros animais ou usar magias menores. Presentes em D&D e análogos ao Caçador (Hunter) em World of Warcraft."
+        @en "The Ranger is a skilled combatant adapted to wilderness and frontier life. They are experts in tracking, survival, and ranged combat (often with bows), utilizing Dexterity and Wisdom. They may have bonds with nature, animal companions, or use minor spells. Present in D&D and analogous to the Hunter in World of Warcraft."
     }
 }
 
 subkind Paladin (instanceOf Class) specializes Characters.Character {
     label {
         @pt-br "Paladino"
+        @en "Paladin"
     }
     description {
         @pt-br "O Paladino é um guerreiro sagrado vinculado a um juramento ou divindade, combinando proeza marcial com poder divino. Usam armaduras pesadas, curam ferimentos, protegem aliados com auras e golpeiam inimigos com justiça sagrada, geralmente baseados em Força e Carisma. Uma classe icônica em D&D e World of Warcraft."
+        @en "The Paladin is a holy warrior bound by an oath or to a deity, combining martial prowess with divine power. They wear heavy armor, heal wounds, protect allies with auras, and strike enemies with holy justice, generally based on Strength and Charisma. An iconic class in D&D and World of Warcraft."
     }
 }
 
 subkind Druid (instanceOf Class) specializes Characters.Character {
     label {
         @pt-br "Druida"
+        @en "Druid"
     }
     description {
         @pt-br "O Druida é um conjurador que extrai poder da natureza selvagem, buscando proteger o equilíbrio. São conhecidos por sua capacidade de se transformar em animais (metamorfose), conjurar magias elementais e de cura, e comungar com a flora e fauna, baseando-se em Sabedoria. Classe central em D&D e World of Warcraft."
+        @en "The Druid is a spellcaster who draws power from wild nature, seeking to protect balance. They are known for their ability to transform into animals (shapeshifting), cast elemental and healing spells, and commune with flora and fauna, relying on Wisdom. A central class in D&D and World of Warcraft."
     }
 }
 
 subkind Barbarian (instanceOf Class) specializes Characters.Character {
     label {
         @pt-br "Bárbaro"
+        @en "Barbarian"
     }
     description {
         @pt-br "O Bárbaro é um combatente feroz movido por instinto e fúria primal, vindo de terras selvagens ou tribais. Destacam-se pela sua força bruta, resistência incrível e a capacidade de entrar em um estado de 'Fúria' (Rage) para aumentar seu poder em combate, confiando em Força e Constituição. Comuns em cenários de fantasia como D&D."
+        @en "The Barbarian is a fierce combatant driven by instinct and primal fury, hailing from wild or tribal lands. They stand out for their brute strength, incredible resilience, and the ability to enter a state of 'Rage' to increase their power in combat, relying on Strength and Constitution. Common in fantasy settings like D&D."
     }
 }
 
 subkind Bard (instanceOf Class) specializes Characters.Character {
     label {
         @pt-br "Bardo"
+        @en "Bard"
     }
     description {
         @pt-br "O Bardo é um mestre da música, performance, conhecimento e persuasão, usando suas habilidades artísticas para inspirar aliados, desmoralizar inimigos e tecer magias arcanas. São versáteis ('pau para toda obra'), com acesso a diversas perícias e feitiços, geralmente utilizando Carisma. Uma classe distinta em sistemas como D&D."
+        @en "The Bard is a master of music, performance, knowledge, and persuasion, using artistic skills to inspire allies, demoralize enemies, and weave arcane magic. They are versatile ('jack-of-all-trades'), with access to diverse skills and spells, generally utilizing Charisma. A distinct class in systems like D&D."
     }
 }
 
 subkind Monk (instanceOf Class) specializes Characters.Character {
     label {
         @pt-br "Monge"
+        @en "Monk"
     }
     description {
         @pt-br "Em jogos de RPG, o Monge é um mestre das artes marciais que aprimora corpo e mente através de disciplina rigorosa. Lutam desarmados ou com armas específicas ('armas de monge'), canalizando energia interior ('Ki' ou 'Chi') para realizar feitos incríveis de velocidade, poder e resistência defensiva, geralmente usando Destreza e Sabedoria."
+        @en "In RPG games, the Monk is a master of martial arts who hones body and mind through rigorous discipline. They fight unarmed or with specific 'monk weapons', channeling inner energy ('Ki' or 'Chi') to perform incredible feats of speed, power, and defensive resilience, generally using Dexterity and Wisdom."
     }
 }
 
 subkind Sorcerer (instanceOf Class) specializes Characters.Character {
     label {
         @pt-br "Feiticeiro"
+        @en "Sorcerer"
     }
     description {
         @pt-br "Em jogos de RPG, o Feiticeiro possui magia inata, derivada de uma linhagem (ex: dragão, celestial), evento sobrenatural ou dom bruto. Conjura magias arcanas espontaneamente usando sua força de vontade (geralmente Carisma), muitas vezes com grande poder bruto ou flexibilidade de conjuração ('metamagia'), embora com um repertório conhecido mais limitado que o Mago."
+        @en "In RPG games, the Sorcerer possesses innate magic, derived from a bloodline (e.g., dragon, celestial), supernatural event, or raw gift. They cast arcane spells spontaneously using their force of will (usually Charisma), often with great raw power or casting flexibility ('metamagic'), albeit with a potentially more limited known repertoire than a Wizard/Mage."
     }
 }
 
 subkind Warlock (instanceOf Class) specializes Characters.Character {
     label {
         @pt-br "Bruxo"
+        @en "Warlock"
     }
     description {
         @pt-br "Em jogos de RPG, o Bruxo adquire poder arcano através de um pacto com uma entidade poderosa (como um demônio, arquifada, ser antigo ou cósmico). Utilizam magias únicas concedidas por seu patrono, invocações místicas para customizar habilidades (como a 'Rajada Mística' - Eldritch Blast), e frequentemente focam em dano contínuo ou debuffs, usando Carisma."
+        @en "In RPG games, the Warlock acquires arcane power through a pact with a powerful entity (such as a demon, archfey, ancient being, or cosmic entity). They use unique spells granted by their patron, mystical invocations to customize abilities (like 'Eldritch Blast'), and often focus on sustained damage or debuffs, using Charisma."
     }
 }
 
 subkind Shaman (instanceOf Class) specializes Characters.Character {
     label {
         @pt-br "Xamã"
+        @en "Shaman"
     }
     description {
         @pt-br "Em jogos de RPG, o Xamã atua como um mediador entre o mundo físico e os reinos espirituais, comungando com espíritos ancestrais ou elementais. Utilizam totens, conjuram magias elementais (fogo, terra, água, ar), curam aliados e podem até mesmo aprimorar o combate corpo a corpo, servindo como uma classe híbrida versátil (comum em jogos como World of Warcraft)."
+        @en "In RPG games, the Shaman acts as a mediator between the physical world and the spirit realms, communing with ancestral or elemental spirits. They utilize totems, cast elemental spells (fire, earth, water, air), heal allies, and may even enhance melee combat, serving as a versatile hybrid class (common in games like World of Warcraft)."
     }
 }

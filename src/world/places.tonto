@@ -1,21 +1,84 @@
 package Places
 
 datatype Coordinate {
-    lat: number
-    long: number
+    label {
+        @pt-br "Coordenada Geográfica/Planar"
+        @en "Geographical/Planar Coordinate"
+    }
+    description {
+        @pt-br "Representa uma localização geográfica ou planar utilizando um par de valores numéricos."
+        @en "Represents a geographic or planar location using a pair of numerical values."
+    }
+    // --- Attributes ---
+    lat: number   // Coordenada de latitude (Norte-Sul) ou eixo Y.
+    long: number  // Coordenada de longitude (Leste-Oeste) ou eixo X.
 }
 
 kind Place {
-    name: string
-    position: Coordinate
+    label {
+        @pt-br "Lugar"
+        @en "Place"
+    }
+    description {
+        @pt-br "Representa uma localização identificável no mundo do jogo, narrativa ou plano dimensional. Pode variar em escala desde uma pequena vila até um reino inteiro ou dimensão."
+        @en "Represents an identifiable location in the game world, narrative, or dimensional plane. Can range in scale from a small village to an entire realm or dimension."
+    }
+    // --- Attributes ---
+    name: string           // O nome próprio que identifica o lugar.
+    position: Coordinate   // As coordenadas que especificam a localização do lugar.
 }
 
-subkind Realm specializes Place
+subkind Realm specializes Place {
+    label {
+        @pt-br "Reino"
+        @en "Realm"
+    }
+    description {
+        @pt-br "Um reino representa um território extenso, frequentemente governado por um monarca (rei/rainha) ou outra autoridade central. Em cenários de fantasia, pode ter conotações mágicas ou abranger vastas áreas geográficas, possivelmente incluindo múltiplos países ou culturas."
+        @en "A realm represents an extensive territory, often ruled by a monarch (king/queen) or other central authority. In fantasy settings, it may have magical connotations or encompass vast geographical areas, possibly including multiple countries or cultures."
+    }
+}
 
-subkind Dimension specializes Place
+subkind Dimension specializes Place {
+    label {
+        @pt-br "Dimensão"
+        @en "Dimension" // Or "Plane of Existence"
+    }
+    description {
+        @pt-br "Uma dimensão (ou plano de existência) representa uma realidade separada ou um nível cosmológico distinto, potencialmente com leis físicas, habitantes e ambientes próprios. A 'posição' herdada pode ser interpretada metaforicamente, como um ponto de acesso, ou ser irrelevante dependendo do contexto dimensional."
+        @en "A dimension (or plane of existence) represents a separate reality or a distinct cosmological level, potentially with its own physical laws, inhabitants, and environments. The inherited 'position' might be interpreted metaphorically, as an access point, or be irrelevant depending on the dimensional context."
+    }
+}
 
-subkind Country specializes Place
+subkind Country specializes Place {
+    label {
+        @pt-br "País"
+        @en "Country"
+    }
+    description {
+        @pt-br "Um país é uma entidade política ou nação que ocupa um território geográfico definido, geralmente com um governo estabelecido, fronteiras reconhecidas (ou disputadas) e uma população com identidade cultural comum."
+        @en "A country is a political entity or nation occupying a defined geographic territory, usually with an established government, recognized (or disputed) borders, and a population with a common cultural identity."
+    }
+}
 
-subkind City specializes Place
+subkind City specializes Place {
+    label {
+        @pt-br "Cidade"
+        @en "City"
+    }
+    description {
+        @pt-br "Uma cidade é um assentamento humano permanente, de grande porte e alta densidade populacional. Geralmente atua como um centro significativo de administração, comércio, cultura e interação social para uma região."
+        @en "A city is a large, permanent, and densely populated human settlement. It generally acts as a significant center for administration, commerce, culture, and social interaction for a region."
+    }
+}
 
-subkind Village specializes Place
+subkind Village specializes Place {
+    label {
+        @pt-br "Vila" // Ou Aldeia
+        @en "Village" // Or Hamlet
+    }
+    description {
+        @pt-br "Uma vila (ou aldeia) é um pequeno assentamento humano, tipicamente localizado em área rural e consideravelmente menor que uma cidade. Frequentemente baseada em agricultura, pesca ou extração de recursos locais."
+        @en "A village (or hamlet) is a small human settlement, typically located in a rural area and considerably smaller than a city. Often based on agriculture, fishing, or extraction of local resources."
+    }
+}

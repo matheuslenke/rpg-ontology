@@ -3,54 +3,114 @@ package Skills
 mode Skill {
     label {
         @pt-br "Habilidade"
+        @en "Skill"
     }
     description {
-        @pt-br "Representa uma habilidade física ou mágica que um personagem pode utilizar em combate"
+        @pt-br "Representa uma habilidade física ou mágica que um personagem pode utilizar em combate ou para outras ações."
+        @en "Represents a physical or magical ability that a character can use in combat or for other actions."
     }
-    level: number
-    _type: SkillType [1..*]
+    level: number     // Nível da habilidade.
+    _type: SkillType [1..*] // Tipo(s) elemental(is) ou de natureza da habilidade.
 }
 
 enum SkillType {
     label {
         @pt-br "Tipo de Habilidade"
+        @en "Skill Type"
     }
     description {
-        @pt-br "Representa o tipo de habilidade, como física, mágica, sagrada, etc."
+        @pt-br "Representa o tipo elemental ou natureza de uma habilidade (fogo, sagrado, etc.)."
+        @en "Represents the elemental type or nature of a skill (fire, sacred, etc.)."
     }
-    Sacred,
-    Fire,
-    Ice,
-    Poison,
-    Evil,
-    Forbidden,
-    Protection
+    // Enum Literals
+    Sacred,     // Sagrado
+    Fire,       // Fogo
+    Ice,        // Gelo
+    Poison,     // Veneno
+    Evil,       // Maligno / Sombrio
+    Forbidden,  // Proibido
+    Protection  // Proteção / Defensivo
 }
 
 type Attribute {
     label {
         @pt-br "Atributo"
+        @en "Attribute"
     }
     description {
-        @pt-br "Representa um atributo de um personagem, como força, inteligência, agilidade, etc."
+        @pt-br "Representa um atributo fundamental de um personagem, como força, inteligência, agilidade, etc., que influencia suas capacidades."
+        @en "Represents a fundamental attribute of a character, such as strength, intelligence, agility, etc., which influences their capabilities."
     }
 }
 
 quality Strength (instanceOf Attribute) {
-    qualityValue: number
+    label {
+        @pt-br "Força"
+        @en "Strength"
+    }
+    description {
+        @pt-br "Representa o poder físico bruto de um personagem, afetando dano corpo-a-corpo, capacidade de carga, etc."
+        @en "Represents the raw physical power of a character, affecting melee damage, carrying capacity, etc."
+    }
+    qualityValue: number // O valor numérico do atributo Força.
 }
+
 quality Intelligence (instanceOf Attribute) {
-    qualityValue: number
+    label {
+        @pt-br "Inteligência"
+        @en "Intelligence"
+    }
+    description {
+        @pt-br "Representa a capacidade mental, raciocínio e conhecimento arcano de um personagem, afetando poder mágico, perícias baseadas em conhecimento, etc."
+        @en "Represents the mental capacity, reasoning, and arcane knowledge of a character, affecting magical power, knowledge-based skills, etc."
+    }
+    qualityValue: number // O valor numérico do atributo Inteligência.
 }
+
 quality Agility (instanceOf Attribute) {
-    qualityValue: number
+    label {
+        @pt-br "Agilidade" // Ou Destreza
+        @en "Agility" // Or Dexterity
+    }
+    description {
+        @pt-br "Representa a coordenação física, reflexos e destreza manual de um personagem, afetando ataques à distância, esquiva, furtividade, etc."
+        @en "Represents the physical coordination, reflexes, and manual dexterity of a character, affecting ranged attacks, evasion, stealth, etc."
+    }
+    qualityValue: number // O valor numérico do atributo Agilidade/Destreza.
 }
+
 quality Wisdom (instanceOf Attribute) {
-    qualityValue: number
+    label {
+        @pt-br "Sabedoria"
+        @en "Wisdom"
+    }
+    description {
+        @pt-br "Representa a percepção, intuição e força de vontade de um personagem, frequentemente afetando magia divina, percepção sensorial e resistências mentais."
+        @en "Represents the perception, intuition, and willpower of a character, often affecting divine magic, sensory perception, and mental resistances."
+    }
+    qualityValue: number // O valor numérico do atributo Sabedoria.
 }
+
 quality Vitality (instanceOf Attribute) {
-    qualityValue: number
+    label {
+        @pt-br "Vitalidade" // Ou Constituição
+        @en "Vitality" // Or Constitution
+    }
+    description {
+        @pt-br "Representa a saúde física, resistência e durabilidade de um personagem, afetando pontos de vida, resistência a venenos/doenças, etc."
+        @en "Represents the physical health, endurance, and hardiness of a character, affecting hit points, resistance to poison/disease, etc."
+    }
+    qualityValue: number // O valor numérico do atributo Vitalidade/Constituição.
 }
+
 quality Charisma (instanceOf Attribute) {
-    qualityValue: number
+    label {
+        @pt-br "Carisma"
+        @en "Charisma"
+    }
+    description {
+        @pt-br "Representa a força da personalidade, persuasão e capacidade de liderança de um personagem, afetando interações sociais, magia baseada em vontade (ex: Bardo/Feiticeiro), etc."
+        @en "Represents the force of personality, persuasiveness, and leadership ability of a character, affecting social interactions, will-based magic (e.g., Bard/Sorcerer), etc."
+    }
+    qualityValue: number // O valor numérico do atributo Carisma.
 }
