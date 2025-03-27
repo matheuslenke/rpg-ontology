@@ -483,7 +483,7 @@ type Race {
 disjoint genset TypesOfRaces {
     general Character
     categorizer Race
-    specifics Elf, Orc, Human, HighElf, DarkElf, Gnome, Troll, Undead // Added missing specifics
+    specifics Elf, Orc, Human, HighElf, DarkElf, Gnome, Troll, Undead
 }
 
 subkind Elf (instanceOf Race) specializes Character {
