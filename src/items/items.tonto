@@ -11,7 +11,6 @@ disjoint genset ItemsToEquip {
     specifics Weapon, Armor, Amulet
 }
 
-
 type ConsumableItem
 
 disjoint genset  ItemsToConsume {
@@ -114,7 +113,7 @@ kind Inventory {
     @memberOf [1] <>-- containsItems -- [0..*] Item
 }
 
-subkind Bagpack specializes Inventory {
+subkind Backpack specializes Inventory {
     label {
         @pt-br "Mochila"
     }
