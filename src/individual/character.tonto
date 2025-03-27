@@ -67,7 +67,11 @@ subkind Character specializes Individual {
     [*] -- hasInventory -- [1] Items.Inventory
     [*] -- hasSkills -- [0..*] skills.Skill
     @characterization [1] -- hasStrengh -- [1] skills.Strength
-    @characterization [1] -- hasIntelligence -- [1] skills.Intelligence
+    @characterization [1] -- hasIntelligence -- [1] Skills.Intelligence
+    @characterization [1] -- hasAgility -- [1] Skills.Agility
+    @characterization [1] -- hasVitality -- [1] Skills.Vitality
+    @characterization [1] -- hasCharisma -- [1] Skills.Charisma
+    @characterization [1] -- hasWisdom -- [1] Skills.Wisdom
 }
 
 subkind PlayableCharacter specializes Character

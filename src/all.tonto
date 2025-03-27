@@ -1,0 +1,617 @@
+package RPGOntology
+
+kind Individual {
+    label {
+        @pt-br "Indivíduo"
+    }
+    description {
+        @pt-br "Um indivíduo que é um ser vivo e está presente no universo"
+    }
+
+    name: string
+    birthDate: date { const }
+    (natives) [*] -- isBornIn -- [1] ({const} birthplace) Place
+    (nativeSpeakers) [*] -- hasMotherTongue -- [1] (motherTongue) Language
+    (speakers) [*] -- speaks -- [0..*] (languagesSpoken) Language
+    alignment: Alignment
+    height: number
+}
+
+kind Language {
+    label {
+        @pt-br "Língua"
+    }
+    description {
+        @pt-br "Um sistema estruturado de comunicação usado por personagens e criaturas para interagir entre si"
+    }
+
+    name: string
+    isAlive: boolean
+    difficulty: number
+    writingSystem: string
+    (speakers) [*] -- hasDialect -- [0..*] (dialects) Language
+    (originRace) [0..*] -- originatedFrom -- [0..1] Race
+}
+
+enum Alignment {
+    LawfulGood,
+    LawfulNeutral,
+    LawfulEvil,
+    NeutralGood,
+    TrueNeutral,
+    NeutralEvil,
+    ChaoticGood,
+    ChaoticNeutral,
+    ChaoticEvil
+}
+
+subkind Monster specializes Individual
+
+subkind Character specializes Individual {
+    label {
+        @pt-br "Personagem"
+    }
+    description {
+        @pt-br "Um personagem é um ser de alguma raça específica e que está vivo no universo"
+    }
+
+    level: number
+
+    [*] -- is -- [1..2] Race
+
+    [*] -- hasInventory -- [1] Inventory
+    [*] -- hasSkills -- [0..*] Skill
+    @characterization [1] -- hasStrengh -- [1] Strength
+    @characterization [1] -- hasIntelligence -- [1] Intelligence
+}
+
+subkind PlayableCharacter specializes Character
+subkind Non-PlayableCharacter specializes Character
+
+role Worker specializes Character {
+    label {
+        @pt-br "Trabalhador"
+    }
+}
+
+phase AliveIndividual specializes Individual
+phase UndeadIndividual specializes Individual
+phase DeadIndividual specializes Individual
+
+type Class {
+    label {
+        @pt-br "Classe"
+    }
+    description {
+        @pt-br "Em jogos de RPG, uma classe é uma categoria de personagens que compartilham habilidades e características comuns. Uma classe dá habilidades (ou perícias) exclusivas para o personagem de cada classe."
+    }
+}
+
+disjoint genset TypesOfClasses {
+    general Character
+    categorizer Class
+    specifics Warrior, Mage, Rogue, Cleric, Ranger, Paladin, Druid, Barbarian, Bard, Monk, Sorcerer, Warlock, Shaman
+}
+
+subkind Warrior (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Guerreiro"
+    }
+    description {
+        @pt-br "O Guerreiro é uma classe de personagens típica de cenários de fantasia medieval, dentre os quais se destacam os jogos Dungeons & Dragons, também chamado de D&D e Pathfinder Roleplaying Game."
+    }
+}
+
+subkind Mage (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Mago"
+    }
+    description {
+        @pt-br "O Mago é uma classe de personagem típica de cenários de fantasia, conhecida por sua maestria em magia e artes arcanas. Frequentemente utilizam sua inteligência ou sabedoria para lançar feitiços, manipular os elementos ou influenciar mentes. São proeminentes em jogos como Dungeons & Dragons (D&D) e Pathfinder Roleplaying Game."
+    }
+}
+
+subkind Rogue (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Ladino" // Or "Ladrão", but "Ladino" is common in D&D Brazil
+    }
+    description {
+        @pt-br "O Ladino é uma classe focada em furtividade, agilidade e perícias. São mestres em se esconder nas sombras, desarmar armadilhas, abrir fechaduras e realizar ataques precisos e sorrateiros, geralmente contando com alta Destreza. Essenciais em jogos como D&D e World of Warcraft."
+    }
+}
+
+subkind Cleric (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Clérigo"
+    }
+    description {
+        @pt-br "O Clérigo é um agente de um poder divino (como um deus ou filosofia), canalizando energia sagrada. São conhecidos por curar ferimentos, proteger aliados com magia divina e punir inimigos (especialmente mortos-vivos), frequentemente utilizando Sabedoria. Uma classe fundamental em D&D e similar ao Sacerdote (Priest) em World of Warcraft."
+    }
+}
+
+subkind Ranger (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Ranger" // "Patrulheiro" is another translation, but Ranger is widely used
+    }
+    description {
+        @pt-br "O Ranger é um combatente habilidoso adaptado à vida selvagem e fronteiriça. São peritos em rastreamento, sobrevivência e combate à distância (frequentemente com arcos), utilizando Destreza e Sabedoria. Podem ter laços com a natureza, companheiros animais ou usar magias menores. Presentes em D&D e análogos ao Caçador (Hunter) em World of Warcraft."
+    }
+}
+
+subkind Paladin (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Paladino"
+    }
+    description {
+        @pt-br "O Paladino é um guerreiro sagrado vinculado a um juramento ou divindade, combinando proeza marcial com poder divino. Usam armaduras pesadas, curam ferimentos, protegem aliados com auras e golpeiam inimigos com justiça sagrada, geralmente baseados em Força e Carisma. Uma classe icônica em D&D e World of Warcraft."
+    }
+}
+
+subkind Druid (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Druida"
+    }
+    description {
+        @pt-br "O Druida é um conjurador que extrai poder da natureza selvagem, buscando proteger o equilíbrio. São conhecidos por sua capacidade de se transformar em animais (metamorfose), conjurar magias elementais e de cura, e comungar com a flora e fauna, baseando-se em Sabedoria. Classe central em D&D e World of Warcraft."
+    }
+}
+
+subkind Barbarian (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Bárbaro"
+    }
+    description {
+        @pt-br "O Bárbaro é um combatente feroz movido por instinto e fúria primal, vindo de terras selvagens ou tribais. Destacam-se pela sua força bruta, resistência incrível e a capacidade de entrar em um estado de 'Fúria' (Rage) para aumentar seu poder em combate, confiando em Força e Constituição. Comuns em cenários de fantasia como D&D."
+    }
+}
+
+subkind Bard (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Bardo"
+    }
+    description {
+        @pt-br "O Bardo é um mestre da música, performance, conhecimento e persuasão, usando suas habilidades artísticas para inspirar aliados, desmoralizar inimigos e tecer magias arcanas. São versáteis ('pau para toda obra'), com acesso a diversas perícias e feitiços, geralmente utilizando Carisma. Uma classe distinta em sistemas como D&D."
+    }
+}
+
+subkind Monk (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Monge"
+    }
+    description {
+        @pt-br "Em jogos de RPG, o Monge é um mestre das artes marciais que aprimora corpo e mente através de disciplina rigorosa. Lutam desarmados ou com armas específicas ('armas de monge'), canalizando energia interior ('Ki' ou 'Chi') para realizar feitos incríveis de velocidade, poder e resistência defensiva, geralmente usando Destreza e Sabedoria."
+    }
+}
+
+subkind Sorcerer (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Feiticeiro"
+    }
+    description {
+        @pt-br "Em jogos de RPG, o Feiticeiro possui magia inata, derivada de uma linhagem (ex: dragão, celestial), evento sobrenatural ou dom bruto. Conjura magias arcanas espontaneamente usando sua força de vontade (geralmente Carisma), muitas vezes com grande poder bruto ou flexibilidade de conjuração ('metamagia'), embora com um repertório conhecido mais limitado que o Mago."
+    }
+}
+
+subkind Warlock (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Bruxo"
+    }
+    description {
+        @pt-br "Em jogos de RPG, o Bruxo adquire poder arcano através de um pacto com uma entidade poderosa (como um demônio, arquifada, ser antigo ou cósmico). Utilizam magias únicas concedidas por seu patrono, invocações místicas para customizar habilidades (como a 'Rajada Mística' - Eldritch Blast), e frequentemente focam em dano contínuo ou debuffs, usando Carisma."
+    }
+}
+
+subkind Shaman (instanceOf Class) specializes Character {
+    label {
+        @pt-br "Xamã"
+    }
+    description {
+        @pt-br "Em jogos de RPG, o Xamã atua como um mediador entre o mundo físico e os reinos espirituais, comungando com espíritos ancestrais ou elementais. Utilizam totens, conjuram magias elementais (fogo, terra, água, ar), curam aliados e podem até mesmo aprimorar o combate corpo a corpo, servindo como uma classe híbrida versátil (comum em jogos como World of Warcraft)."
+    }
+}
+
+enum ProfessionSkillLevel {
+    Dummy,
+    Beginner,
+    Intermediate,
+    Advanced
+}
+
+type Profession {
+    label {
+        @pt-br "Profissão"
+    }
+    description {
+        @pt-br "É um tipo de Personagem definido por habilidades relacionadas à uma determinada área"
+    }
+
+    level: ProfessionSkillLevel
+
+    [*] -- requiresSkills -- [0..*] Skill
+    (professions) [*] -- [1..*] ({ ordered } mostImportantAttributes) Attribute 
+}
+
+genset TypesOfProfession {
+    general Character
+    categorizer Profession
+    specifics Blacksmith
+}
+
+phase Blacksmith (instanceOf Profession) specializes Character {
+     label {
+         @pt-br "Ferreiro"
+     }
+     description {
+         @pt-br "Um artesão capaz de executar competentemente a forja e reparo de objetos de metal, como armas, armaduras e ferramentas. O indivíduo é um ferreiro enquanto possui as habilidades necessárias para executar tais tarefas."
+     }
+ }
+
+phase Herbalist (instanceOf Profession) specializes Character {
+     label {
+         @pt-br "Herbalista"
+     }
+     description {
+         @pt-br "Um indivíduo com conhecimento em plantas e ervas, utilizando-as para fins medicinais, culinários ou outros."
+     }
+ }
+
+phase Tailorist (instanceOf Profession) specializes Character {
+     label {
+         @pt-br "Alfaiate"
+     }
+     description {
+         @pt-br "Um artesão especializado na confecção, reparo e alteração de roupas e vestimentas."
+     }
+ }
+
+phase PotionBrewer (instanceOf Profession) specializes Character {
+     label {
+         @pt-br "Mestre de Poções"
+     }
+     description {
+         @pt-br "Um especialista na arte de misturar ingredientes para criar poções com efeitos mágicos ou alquímicos."
+     }
+ }
+
+phase Merchant (instanceOf Profession) specializes Character {
+     label {
+         @pt-br "Mercador"
+     }
+     description {
+         @pt-br "Um indivíduo envolvido na compra e venda de bens e serviços."
+     }
+ }
+
+phase Guard (instanceOf Profession) specializes Character {
+     label {
+         @pt-br "Guarda"
+     }
+     description {
+         @pt-br "Um indivíduo responsável por proteger pessoas, lugares ou propriedades."
+     }
+ }
+
+phase Scholar (instanceOf Profession) specializes Character {
+     label {
+         @pt-br "Erudito"
+     }
+     description {
+         @pt-br "Uma pessoa dedicada ao estudo e ao conhecimento em uma ou mais áreas."
+     }
+ }
+
+phase Farmer (instanceOf Profession) specializes Character {
+     label {
+         @pt-br "Fazendeiro"
+     }
+     description {
+         @pt-br "Um indivíduo que cultiva a terra e cria animais para obter alimento e outros recursos."
+     }
+ }
+
+phase Miner (instanceOf Profession) specializes Character {
+     label {
+         @pt-br "Minerador"
+     }
+     description {
+         @pt-br "Um trabalhador que extrai minerais e outros materiais valiosos do subsolo."
+     }
+ }
+
+phase Carpenter (instanceOf Profession) specializes Character {
+     label {
+         @pt-br "Carpinteiro"
+     }
+     description {
+         @pt-br "Um artesão que trabalha com madeira, construindo, reparando e instalando estruturas e objetos."
+     }
+ }
+
+ type Race
+
+disjoint genset TypesOfRaces {
+    general Character
+    categorizer Race
+    specifics Elf, Orc, Human, HighElf
+}
+
+subkind Elf (instanceOf Race) specializes Character {
+    label {
+        @pt-br "Elfo"
+    }
+    description {
+        @pt-br "Elfos são divindades maiores da natureza e da fertilidade. Os elfos são geralmente mostrados como jovens de grande beleza vivendo entre as florestas, sob a terra, em fontes e outros lugares naturais. São retratados como seres sensíveis, de longa vida ou imortalidade, com poderes mágicos e grande ligação com a natureza."
+    }
+}
+
+subkind Orc (instanceOf Race) specializes Character {
+    label {
+        @pt-br "Orc"
+    }
+    description {
+        @pt-br "Orc, ork, orco ou orque (termo vindo do latim Orcus, um dos títulos de Plutão, o senhor do mundo dos mortos), aparece nas línguas germânicas e nos contos de fantasia medieval como uma criatura deformada e forte, que combate contra as forças do bem. Este conceito foi popularizado nos romances de Tolkien, O Hobbit e O Senhor dos Anéis, e virou recorrente em jogos de RPG de mesa ou RPG eletrônico, como D&D, World of Warcraft, Lineage II, Tibia, Grand Chase, The Lord of the Rings Online e Ragnarok Online, no entanto, não aparecem como criaturas maléficas na franquia The Elder Scrolls ou em World of Warcraft, sendo nesses jogos, uma raça semelhante aos homens."
+    }
+}
+
+subkind Human (instanceOf Race) specializes Character {
+    label {
+        @pt-br "Humano"
+    }
+    description {
+        @pt-br "Humanos são a raça mais comum em muitos mundos de fantasia. Eles são conhecidos por sua adaptabilidade, ambição e diversidade cultural. Geralmente possuem uma vida útil mais curta em comparação com outras raças como elfos e anões."
+    }
+}
+
+subkind HighElf (instanceOf Race) specializes Elf {
+    label {
+        @pt-br "Alto Elfo"
+    }
+    description {
+        @pt-br "Altos Elfos são frequentemente retratados como mais inteligentes e mágicos do que outros elfos. Eles geralmente vivem em cidades élficas isoladas e possuem uma conexão profunda com a magia arcana e as artes."
+    }
+}
+
+subkind DarkElf (instanceOf Race) specializes Elf {
+    label {
+        @pt-br "Elfo Negro"
+    }
+    description {
+        @pt-br "Elfos Negros, também conhecidos como Drow em alguns cenários, são geralmente retratados como habitantes do subterrâneo com uma sociedade sombria e matriarcal. Eles são frequentemente associados à escuridão, venenos e magia negra."
+    }
+}
+
+subkind Gnome (instanceOf Race) specializes Character {
+    label {
+        @pt-br "Gnomo"
+    }
+    description {
+        @pt-br "Gnomos são criaturas pequenas e inteligentes, conhecidas por sua curiosidade, inventividade e habilidade em engenharia e tecnologia. Eles geralmente são amigáveis e excêntricos, com uma paixão por conhecimento e invenções."
+    }
+}
+
+subkind Troll (instanceOf Race) specializes Character {
+    label {
+        @pt-br "Troll"
+    }
+    description {
+        @pt-br "Trolls são criaturas grandes e fortes, frequentemente com pele verde ou acinzentada, presas proeminentes e, em algumas lendas, a capacidade de se regenerar rapidamente. Eles podem variar de tribos selvagens a seres mais civilizados, dependendo do universo de fantasia."
+    }
+}
+
+subkind Undead (instanceOf Race) specializes Character {
+    label {
+        @pt-br "Morto-vivo"
+    }
+    description {
+        @pt-br "Mortos-vivos são seres que já estiveram vivos, mas foram reanimados por meios mágicos ou sobrenaturais. Eles podem variar de esqueletos e zumbis a fantasmas e vampiros, e geralmente não possuem as mesmas necessidades ou emoções dos seres vivos."
+    }
+}
+
+mode Skill {
+    label {
+        @pt-br "Habilidade"
+    }
+    description {
+        @pt-br "Representa uma habilidade física ou mágica que um personagem pode utilizar em combate"
+    }
+    level: number
+    _type: SkillType [1..*]
+}
+
+enum SkillType {
+    label {
+        @pt-br "Tipo de Habilidade"
+    }
+    description {
+        @pt-br "Representa o tipo de habilidade, como física, mágica, sagrada, etc."
+    }
+    Sacred,
+    Fire,
+    Ice,
+    Poison,
+    Evil,
+    Forbidden,
+    Protection
+}
+
+type Attribute {
+    label {
+        @pt-br "Atributo"
+    }
+    description {
+        @pt-br "Representa um atributo de um personagem, como força, inteligência, agilidade, etc."
+    }
+}
+
+quality Strength (instanceOf Attribute) {
+    qualityValue: number
+}
+quality Intelligence (instanceOf Attribute) {
+    qualityValue: number
+}
+quality Agility (instanceOf Attribute) {
+    qualityValue: number
+}
+quality Wisdom (instanceOf Attribute) {
+    qualityValue: number
+}
+quality Vitality (instanceOf Attribute) {
+    qualityValue: number
+}
+quality Charisma (instanceOf Attribute) {
+    qualityValue: number
+}
+
+// ---------------     Items     ---------------
+kind Item
+
+type EquippableItem
+
+disjoint genset ItemsToEquip {
+    general Item
+    categorizer EquippableItem
+    specifics Weapon, Armor, Amulet
+}
+
+
+type ConsumableItem
+
+disjoint genset  ItemsToConsume {
+    general Item
+    categorizer ConsumableItem
+    specifics Food, Scroll, Potion
+}
+
+disjoint complete genset TypesOfItems {
+    general Item
+    specifics EquippableItem, ConsumableItem
+}
+
+
+// ---------     Weapons     ---------
+subkind Weapon specializes Item
+
+subkind OneHandWeapon specializes Weapon
+subkind TwoHandWeapon specializes Weapon
+
+disjoint complete genset TypesOfWeapons {
+    general Weapon
+    specifics OneHandWeapon, TwoHandWeapon
+}
+
+
+subkind Knife specializes OneHandWeapon
+subkind Sword specializes OneHandWeapon
+subkind Axel specializes OneHandWeapon
+subkind Shield specializes OneHandWeapon
+
+disjoint complete genset TypesOfOneHandWeapon {
+    general OneHandWeapon
+    specifics Knife, Sword, Axel, Shield
+}
+
+
+subkind TwoKnifes specializes TwoHandWeapon
+subkind HeavySword specializes TwoHandWeapon
+subkind HeavyAxel specializes TwoHandWeapon
+
+disjoint complete genset TypesOfTwoHandWeapon {
+    general TwoHandWeapon
+    specifics TwoKnifes, HeavySword, HeavyAxel
+}
+
+// ---------     Armor     ---------
+subkind Armor specializes Item
+
+subkind Helmet specializes Armor
+subkind Chestplate specializes Armor
+subkind Gloves specializes Armor
+subkind Leggings specializes Armor
+subkind Boots specializes Armor
+
+disjoint complete genset PartsOfArmor {
+    general Armor
+    specifics Helmet, Chestplate, Gloves, Leggings, Boots
+}
+
+// ---------     Amulet     ---------
+subkind Amulet specializes Item
+
+subkind Ring specializes Amulet
+subkind Necklace specializes Amulet
+
+disjoint complete genset TypesOfAmulets {
+    general Amulet
+    specifics Ring, Necklace
+}
+
+// ---------     Potion     ---------
+subkind Potion specializes Item
+
+subkind LifePotion specializes Potion
+subkind StaminaPotion specializes Potion
+subkind ManaPotion specializes Potion
+subkind SkillPotion specializes Potion
+
+disjoint complete genset TypesOfPotion {
+    general Potion
+    specifics LifePotion, StaminaPotion, ManaPotion, SkillPotion
+}
+
+// ---------     Others     ---------
+subkind Food specializes Item
+subkind Scroll specializes Item
+
+
+
+// ---------------     Inventory     ---------------
+kind Inventory {
+    label {
+        @pt-br "Inventário"
+    }
+    description {
+        @pt-br "O inventário é aonde o personagem armazena e manipula seus items"
+    }
+
+    @memberOf [1] <>-- containsItems -- [0..*] Item
+}
+
+subkind Bagpack specializes Inventory {
+    label {
+        @pt-br "Mochila"
+    }
+    description {
+        @pt-br "A mochila é um inventário em que o personagem carrega consigo"
+    }
+    slots: number
+    isFull: boolean
+    isHeavy: boolean
+}
+
+
+kind Magic
+
+subkind DarkMagic specializes Magic
+subkind SacredMagic specializes Magic
+subkind ElementalMagic specializes Magic
+subkind SpiritualMagic specializes Magic
+
+datatype Coordinate {
+    lat: number
+    long: number
+}
+
+kind Place {
+    name: string
+    position: Coordinate
+}
+
+subkind Realm specializes Place
+
+subkind Dimension specializes Place
+
+subkind Country specializes Place
+
+subkind City specializes Place
+
+subkind Village specializes Place
