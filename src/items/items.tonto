@@ -56,8 +56,6 @@ disjoint complete genset TypesOfItems {
 
 
 // ---------     Weapons     ---------
-// InstanceOf Equipment used here implies Weapon is a ROLE played by Equipment, which might be complex.
-// Simpler: 'subkind Weapon specializes Equipment' - Assuming this intent.
 subkind Weapon (instanceOf Equipment) specializes Item {
     label {
         @pt-br "Arma"
@@ -69,7 +67,6 @@ subkind Weapon (instanceOf Equipment) specializes Item {
     }
 }
 
-// InstanceOf Equipment implies OneHandWeapon is a role? Simpler: 'subkind OneHandWeapon specializes Weapon'
 subkind OneHandWeapon specializes Weapon {
     label {
         @pt-br "Arma de uma mão"
@@ -80,7 +77,7 @@ subkind OneHandWeapon specializes Weapon {
         @en "A one-hand weapon is any weapon designed to be wielded and used effectively with only one hand."
     }
 }
-// InstanceOf Equipment implies TwoHandWeapon is a role? Simpler: 'subkind TwoHandWeapon specializes Weapon'
+
 subkind TwoHandWeapon specializes Weapon {
     label {
         @pt-br "Arma de duas mãos"
@@ -101,7 +98,7 @@ disjoint complete genset TypesOfWeapons {
 subkind Knife specializes OneHandWeapon {
     label {
         @pt-br "Adaga"
-        @en "Dagger" // Changed label to common RPG term
+        @en "Dagger"
     }
     description {
         @pt-br "Uma adaga é uma arma branca curta, de lâmina geralmente pontiaguda e frequentemente de dois gumes, empunhada com uma mão. É valorizada pela sua rapidez, facilidade de ocultação e uso em ataques precisos ou furtivos."
@@ -252,7 +249,6 @@ subkind Boots specializes Armor {
     }
 }
 
-// PartsOfArmor genset seems redundant if these are just subtypes, but translating anyway.
 disjoint complete genset PartsOfArmor {
     general Armor
     specifics Helmet, Chestplate, Gloves, Leggings, Boots
