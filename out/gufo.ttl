@@ -1,0 +1,511 @@
+@prefix : <https://example.com#>.
+@prefix gufo: <http://purl.org/nemo/gufo#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+<https://example.com> rdf:type owl:Ontology;
+    owl:imports gufo:.
+:Coordinate rdf:type owl:Class, gufo:AbstractIndividualType, owl:NamedIndividual;
+    rdfs:subClassOf gufo:QualityValue;
+    rdfs:label "Coordinate"@en.
+:Place rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:FunctionalComplex;
+    rdfs:label "Place"@en.
+:Realm rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Realm"@en.
+:Dimension rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Dimension"@en.
+:Country rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Country"@en.
+:City rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "City"@en.
+:Village rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Village"@en.
+:Magic rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:FunctionalComplex;
+    rdfs:label "Magic"@en.
+:DarkMagic rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "DarkMagic"@en.
+:SacredMagic rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "SacredMagic"@en.
+:ElementalMagic rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "ElementalMagic"@en.
+:SpiritualMagic rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "SpiritualMagic"@en.
+:Skill rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:IntrinsicMode;
+    rdfs:label "Skill"@en.
+:SkillType rdf:type owl:Class, gufo:AbstractIndividualType, owl:NamedIndividual;
+    rdfs:subClassOf gufo:QualityValue;
+    owl:equivalentClass [
+  rdf:type owl:Class;
+  owl:oneOf (:Sacred :Fire :Ice :Poison :Evil :Forbidden :Protection)
+].
+:Sacred rdf:type :SkillType;
+    rdf:label "[object Object]".
+:Fire rdf:type :SkillType;
+    rdf:label "[object Object]".
+:Ice rdf:type :SkillType;
+    rdf:label "[object Object]".
+:Poison rdf:type :SkillType;
+    rdf:label "[object Object]".
+:Evil rdf:type :SkillType;
+    rdf:label "[object Object]".
+:Forbidden rdf:type :SkillType;
+    rdf:label "[object Object]".
+:Protection rdf:type :SkillType;
+    rdf:label "[object Object]".
+:SkillType rdfs:label "SkillType"@en.
+:Attribute rdf:type owl:NamedIndividual;
+    rdfs:subClassOf gufo:ConcreteIndividualType;
+    rdfs:label "Attribute"@en.
+:Strength rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:Quality;
+    rdfs:label "Strength"@en.
+:Intelligence rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:Quality;
+    rdfs:label "Intelligence"@en.
+:Agility rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:Quality;
+    rdfs:label "Agility"@en.
+:Wisdom rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:Quality;
+    rdfs:label "Wisdom"@en.
+:Vitality rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:Quality;
+    rdfs:label "Vitality"@en.
+:Charisma rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:Quality;
+    rdfs:label "Charisma"@en.
+:Race rdf:type owl:NamedIndividual;
+    rdfs:subClassOf gufo:ConcreteIndividualType;
+    rdfs:label "Race"@en.
+:Elf rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Elf"@en.
+:Orc rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Orc"@en.
+:Human rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Human"@en.
+:HighElf rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "HighElf"@en.
+:DarkElf rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "DarkElf"@en.
+:Gnome rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Gnome"@en.
+:Troll rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Troll"@en.
+:Undead rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Undead"@en.
+:ProfessionSkillLevel rdf:type owl:Class, gufo:AbstractIndividualType, owl:NamedIndividual;
+    rdfs:subClassOf gufo:QualityValue;
+    owl:equivalentClass [
+  rdf:type owl:Class;
+  owl:oneOf (:Dummy :Beginner :Intermediate :Advanced)
+].
+:Dummy rdf:type :ProfessionSkillLevel;
+    rdf:label "[object Object]".
+:Beginner rdf:type :ProfessionSkillLevel;
+    rdf:label "[object Object]".
+:Intermediate rdf:type :ProfessionSkillLevel;
+    rdf:label "[object Object]".
+:Advanced rdf:type :ProfessionSkillLevel;
+    rdf:label "[object Object]".
+:ProfessionSkillLevel rdfs:label "ProfessionSkillLevel"@en.
+:Profession rdf:type owl:NamedIndividual;
+    rdfs:subClassOf gufo:ConcreteIndividualType;
+    rdfs:label "Profession"@en.
+:Blacksmith rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "Blacksmith"@en.
+:Herbalist rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "Herbalist"@en.
+:Tailor rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "Tailor"@en.
+:PotionBrewer rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "PotionBrewer"@en.
+:Merchant rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "Merchant"@en.
+:Guard rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "Guard"@en.
+:Scholar rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "Scholar"@en.
+:Farmer rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "Farmer"@en.
+:Miner rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "Miner"@en.
+:Carpenter rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "Carpenter"@en.
+:Class rdf:type owl:NamedIndividual;
+    rdfs:subClassOf gufo:ConcreteIndividualType;
+    rdfs:label "Class"@en.
+:Warrior rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Warrior"@en.
+:Mage rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Mage"@en.
+:Rogue rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Rogue"@en.
+:Cleric rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Cleric"@en.
+:Ranger rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Ranger"@en.
+:Paladin rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Paladin"@en.
+:Druid rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Druid"@en.
+:Barbarian rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Barbarian"@en.
+:Bard rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Bard"@en.
+:Monk rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Monk"@en.
+:Sorcerer rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Sorcerer"@en.
+:Warlock rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Warlock"@en.
+:Shaman rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Shaman"@en.
+:Individual rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:FunctionalComplex;
+    rdfs:label "Individual"@en.
+:Language rdf:type owl:Class, gufo:Kind, owl:NamedIndividual;
+    rdfs:subClassOf gufo:FunctionalComplex;
+    rdfs:label "Language"@en.
+:Alignment rdf:type owl:Class, gufo:AbstractIndividualType, owl:NamedIndividual;
+    rdfs:subClassOf gufo:QualityValue;
+    owl:equivalentClass [
+  rdf:type owl:Class;
+  owl:oneOf (:LawfulGood :LawfulNeutral :LawfulEvil :NeutralGood :TrueNeutral :NeutralEvil :ChaoticGood :ChaoticNeutral :ChaoticEvil)
+].
+:LawfulGood rdf:type :Alignment;
+    rdf:label "[object Object]".
+:LawfulNeutral rdf:type :Alignment;
+    rdf:label "[object Object]".
+:LawfulEvil rdf:type :Alignment;
+    rdf:label "[object Object]".
+:NeutralGood rdf:type :Alignment;
+    rdf:label "[object Object]".
+:TrueNeutral rdf:type :Alignment;
+    rdf:label "[object Object]".
+:NeutralEvil rdf:type :Alignment;
+    rdf:label "[object Object]".
+:ChaoticGood rdf:type :Alignment;
+    rdf:label "[object Object]".
+:ChaoticNeutral rdf:type :Alignment;
+    rdf:label "[object Object]".
+:ChaoticEvil rdf:type :Alignment;
+    rdf:label "[object Object]".
+:Alignment rdfs:label "Alignment"@en.
+:Monster rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Monster"@en.
+:Character rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "Character"@en.
+:PlayableCharacter rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "PlayableCharacter"@en.
+:NonPlayableCharacter rdf:type owl:Class, gufo:SubKind, owl:NamedIndividual;
+    rdfs:label "NonPlayableCharacter"@en.
+:Worker rdf:type owl:Class, gufo:Role, owl:NamedIndividual;
+    rdfs:label "Worker"@en.
+:AliveIndividual rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "AliveIndividual"@en.
+:UndeadIndividual rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "UndeadIndividual"@en.
+:DeadIndividual rdf:type owl:Class, gufo:Phase, owl:NamedIndividual;
+    rdfs:label "DeadIndividual"@en.
+:Realm rdfs:subClassOf :Place.
+:Dimension rdfs:subClassOf :Place.
+:Country rdfs:subClassOf :Place.
+:City rdfs:subClassOf :Place.
+:Village rdfs:subClassOf :Place.
+:DarkMagic rdfs:subClassOf :Magic.
+:SacredMagic rdfs:subClassOf :Magic.
+:ElementalMagic rdfs:subClassOf :Magic.
+:SpiritualMagic rdfs:subClassOf :Magic.
+:Elf rdfs:subClassOf :Character.
+:Orc rdfs:subClassOf :Character.
+:Human rdfs:subClassOf :Character.
+:HighElf rdfs:subClassOf :Character.
+:DarkElf rdfs:subClassOf :Character.
+:Gnome rdfs:subClassOf :Character.
+:Troll rdfs:subClassOf :Character.
+:Undead rdfs:subClassOf :Character.
+:Elf rdfs:subClassOf :Character.
+:Orc rdfs:subClassOf :Character.
+:Human rdfs:subClassOf :Character.
+:HighElf rdfs:subClassOf :Elf.
+:DarkElf rdfs:subClassOf :Elf.
+:Gnome rdfs:subClassOf :Character.
+:Troll rdfs:subClassOf :Character.
+:Undead rdfs:subClassOf :Character.
+:Blacksmith rdfs:subClassOf :Character.
+:Herbalist rdfs:subClassOf :Character.
+:Tailor rdfs:subClassOf :Character.
+:PotionBrewer rdfs:subClassOf :Character.
+:Merchant rdfs:subClassOf :Character.
+:Guard rdfs:subClassOf :Character.
+:Scholar rdfs:subClassOf :Character.
+:Farmer rdfs:subClassOf :Character.
+:Miner rdfs:subClassOf :Character.
+:Carpenter rdfs:subClassOf :Character.
+:Blacksmith rdfs:subClassOf :Character.
+:Herbalist rdfs:subClassOf :Character.
+:Tailor rdfs:subClassOf :Character.
+:PotionBrewer rdfs:subClassOf :Character.
+:Merchant rdfs:subClassOf :Character.
+:Guard rdfs:subClassOf :Character.
+:Scholar rdfs:subClassOf :Character.
+:Farmer rdfs:subClassOf :Character.
+:Miner rdfs:subClassOf :Character.
+:Carpenter rdfs:subClassOf :Character.
+:Warrior rdfs:subClassOf :Character.
+:Mage rdfs:subClassOf :Character.
+:Rogue rdfs:subClassOf :Character.
+:Cleric rdfs:subClassOf :Character.
+:Ranger rdfs:subClassOf :Character.
+:Paladin rdfs:subClassOf :Character.
+:Druid rdfs:subClassOf :Character.
+:Barbarian rdfs:subClassOf :Character.
+:Bard rdfs:subClassOf :Character.
+:Monk rdfs:subClassOf :Character.
+:Sorcerer rdfs:subClassOf :Character.
+:Warlock rdfs:subClassOf :Character.
+:Shaman rdfs:subClassOf :Character.
+:Warrior rdfs:subClassOf :Character.
+:Mage rdfs:subClassOf :Character.
+:Rogue rdfs:subClassOf :Character.
+:Cleric rdfs:subClassOf :Character.
+:Ranger rdfs:subClassOf :Character.
+:Paladin rdfs:subClassOf :Character.
+:Druid rdfs:subClassOf :Character.
+:Barbarian rdfs:subClassOf :Character.
+:Bard rdfs:subClassOf :Character.
+:Monk rdfs:subClassOf :Character.
+:Sorcerer rdfs:subClassOf :Character.
+:Warlock rdfs:subClassOf :Character.
+:Shaman rdfs:subClassOf :Character.
+:Monster rdfs:subClassOf :Individual.
+:Character rdfs:subClassOf :Individual.
+:PlayableCharacter rdfs:subClassOf :Character.
+:NonPlayableCharacter rdfs:subClassOf :Character.
+:Worker rdfs:subClassOf :Character.
+:AliveIndividual rdfs:subClassOf :Individual.
+:UndeadIndividual rdfs:subClassOf :Individual.
+:DeadIndividual rdfs:subClassOf :Individual.
+[ rdf:type owl:AllDisjointClasses ] owl:members (:Elf :Orc :Human :HighElf :DarkElf :Gnome :Troll :Undead).
+[ rdf:type owl:AllDisjointClasses ] owl:members (:Warrior :Mage :Rogue :Cleric :Ranger :Paladin :Druid :Barbarian :Bard :Monk :Sorcerer :Warlock :Shaman).
+:lat rdfs:domain :Coordinate;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasValueComponent;
+    rdfs:label "lat"@en.
+:long rdfs:domain :Coordinate;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasValueComponent;
+    rdfs:label "long"@en.
+:name rdfs:domain :Place;
+    rdfs:range xsd:string;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "name"@en.
+:position rdfs:domain :Place;
+    rdfs:range :Coordinate;
+    rdf:type owl:ObjectProperty;
+    rdfs:subPropertyOf gufo:hasReifiedQualityValue;
+    rdfs:label "position"@en.
+:effectDescription rdfs:domain :Magic;
+    rdfs:range xsd:string;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "effectDescription"@en.
+:manaCost rdfs:domain :Magic;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "manaCost"@en.
+:castingTime rdfs:domain :Magic;
+    rdfs:range xsd:string;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "castingTime"@en.
+:range rdfs:domain :Magic;
+    rdfs:range xsd:string;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "range"@en.
+:duration rdfs:domain :Magic;
+    rdfs:range xsd:string;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "duration"@en.
+:targetType rdfs:domain :Magic;
+    rdfs:range xsd:string;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "targetType"@en.
+:requiresConcentration rdfs:domain :Magic;
+    rdfs:range xsd:boolean;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "requiresConcentration"@en.
+:level rdfs:domain :Skill;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "level"@en.
+:_type rdfs:domain :Skill;
+    rdfs:range :SkillType;
+    rdf:type owl:ObjectProperty;
+    rdfs:subPropertyOf gufo:hasReifiedQualityValue;
+    rdfs:label "_type"@en.
+:qualityValue rdfs:domain :Strength;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "qualityValue"@en.
+:qualityValue_1 rdfs:domain :Intelligence;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "qualityValue"@en.
+:qualityValue_2 rdfs:domain :Agility;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "qualityValue"@en.
+:qualityValue_3 rdfs:domain :Wisdom;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "qualityValue"@en.
+:qualityValue_4 rdfs:domain :Vitality;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "qualityValue"@en.
+:qualityValue_5 rdfs:domain :Charisma;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "qualityValue"@en.
+:level_1 rdfs:domain :Profession;
+    rdfs:range :ProfessionSkillLevel;
+    rdf:type owl:ObjectProperty;
+    rdfs:subPropertyOf gufo:hasReifiedQualityValue;
+    rdfs:label "level"@en.
+:name_1 rdfs:domain :Individual;
+    rdfs:range xsd:string;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "name"@en.
+:birthDate rdfs:domain :Individual;
+    rdfs:range xsd:date;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "birthDate"@en.
+:alignment rdfs:domain :Individual;
+    rdfs:range :Alignment;
+    rdf:type owl:ObjectProperty;
+    rdfs:subPropertyOf gufo:hasReifiedQualityValue;
+    rdfs:label "alignment"@en.
+:height rdfs:domain :Individual;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "height"@en.
+:name_2 rdfs:domain :Language;
+    rdfs:range xsd:string;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "name"@en.
+:isAlive rdfs:domain :Language;
+    rdfs:range xsd:boolean;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "isAlive"@en.
+:difficulty rdfs:domain :Language;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "difficulty"@en.
+:writingSystem rdfs:domain :Language;
+    rdfs:range xsd:string;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "writingSystem"@en.
+:level_2 rdfs:domain :Character;
+    rdfs:range :number;
+    rdf:type owl:DatatypeProperty;
+    rdfs:subPropertyOf gufo:hasQualityValue;
+    rdfs:label "level"@en.
+:requiresSkills rdf:type owl:ObjectProperty;
+    rdfs:domain :Profession;
+    rdfs:range :Skill;
+    rdfs:label "requiresSkills"@en.
+:mostImportantAttributes rdf:type owl:ObjectProperty;
+    rdfs:domain :Profession;
+    rdfs:range :Attribute.
+:isBornIn rdf:type owl:ObjectProperty;
+    rdfs:domain :Individual;
+    rdfs:range :Place;
+    rdfs:label "isBornIn"@en.
+:hasMotherTongue rdf:type owl:ObjectProperty;
+    rdfs:domain :Individual;
+    rdfs:range :Language;
+    rdfs:label "hasMotherTongue"@en.
+:speaks rdf:type owl:ObjectProperty;
+    rdfs:domain :Individual;
+    rdfs:range :Language;
+    rdfs:label "speaks"@en.
+:hasDialect rdf:type owl:ObjectProperty;
+    rdfs:domain :Language;
+    rdfs:range :Language;
+    rdfs:label "hasDialect"@en.
+:originatedFrom rdf:type owl:ObjectProperty;
+    rdfs:domain :Language;
+    rdfs:range :Race;
+    rdfs:label "originatedFrom"@en.
+:is rdf:type owl:ObjectProperty;
+    rdfs:domain :Character;
+    rdfs:range :Race;
+    rdfs:label "is"@en.
+:hasSkills rdf:type owl:ObjectProperty;
+    rdfs:domain :Character;
+    rdfs:range :Skill;
+    rdfs:label "hasSkills"@en.
+:hasStrengh rdf:type owl:ObjectProperty;
+    rdfs:domain :Character;
+    rdfs:range :Strength;
+    rdfs:label "hasStrengh"@en;
+    rdfs:subPropertyOf gufo:inheresIn.
+:hasIntelligence rdf:type owl:ObjectProperty;
+    rdfs:domain :Character;
+    rdfs:range :Intelligence;
+    rdfs:label "hasIntelligence"@en;
+    rdfs:subPropertyOf gufo:inheresIn.
+:hasAgility rdf:type owl:ObjectProperty;
+    rdfs:domain :Character;
+    rdfs:range :Agility;
+    rdfs:label "hasAgility"@en;
+    rdfs:subPropertyOf gufo:inheresIn.
+:hasVitality rdf:type owl:ObjectProperty;
+    rdfs:domain :Character;
+    rdfs:range :Vitality;
+    rdfs:label "hasVitality"@en;
+    rdfs:subPropertyOf gufo:inheresIn.
+:hasCharisma rdf:type owl:ObjectProperty;
+    rdfs:domain :Character;
+    rdfs:range :Charisma;
+    rdfs:label "hasCharisma"@en;
+    rdfs:subPropertyOf gufo:inheresIn.
+:hasWisdom rdf:type owl:ObjectProperty;
+    rdfs:domain :Character;
+    rdfs:range :Wisdom;
+    rdfs:label "hasWisdom"@en;
+    rdfs:subPropertyOf gufo:inheresIn.
+:Individual rdfs:subClassOf [
+  rdf:type owl:Restriction;
+  owl:onProperty :isBornIn;
+  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger;
+  owl:onClass :Place
+].
