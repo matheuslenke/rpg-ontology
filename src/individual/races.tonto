@@ -16,7 +16,7 @@ type Race {
 disjoint genset TypesOfRaces {
     general Character
     categorizer Race
-    specifics Elf, Orc, Human, HighElf, DarkElf, Gnome, Troll, Undead
+    specifics Elf, Orc, Human, Gnome, Troll, Undead, Dwarf, Halfling
 }
 
 subkind Elf (instanceOf Race) specializes Characters.Character {
@@ -28,6 +28,7 @@ subkind Elf (instanceOf Race) specializes Characters.Character {
         @pt-br "Elfos são divindades maiores da natureza e da fertilidade. Os elfos são geralmente mostrados como jovens de grande beleza vivendo entre as florestas, sob a terra, em fontes e outros lugares naturais. São retratados como seres sensíveis, de longa vida ou imortalidade, com poderes mágicos e grande ligação com a natureza."
         @en "Elves are often depicted as major nature and fertility deities or spirits. They are generally shown as youthful beings of great beauty living among forests, under the earth, in springs, and other natural places. They are portrayed as sensitive beings, with long life or immortality, magical powers, and a strong connection to nature."
     }
+    averageLifespan: string [0..1]
 }
 
 subkind Orc (instanceOf Race) specializes Characters.Character {
@@ -40,6 +41,7 @@ subkind Orc (instanceOf Race) specializes Characters.Character {
         // Slightly condensed English version for better readability
         @en "Orc (from Latin Orcus) appears in Germanic languages and fantasy as a strong, often brutish creature, typically fighting against 'good'. Popularized by Tolkien, orcs are common in RPGs (D&D, WoW, etc.). Portrayals vary, sometimes non-evil (e.g., WoW, Elder Scrolls)."
     }
+    averageLifespan: string [0..1]
 }
 
 subkind Human (instanceOf Race) specializes Characters.Character {
@@ -51,6 +53,7 @@ subkind Human (instanceOf Race) specializes Characters.Character {
         @pt-br "Humanos são a raça mais comum em muitos mundos de fantasia. Eles são conhecidos por sua adaptabilidade, ambição e diversidade cultural. Geralmente possuem uma vida útil mais curta em comparação com outras raças como elfos e anões."
         @en "Humans are the most common race in many fantasy worlds. They are known for their adaptability, ambition, and cultural diversity. They generally have a shorter lifespan compared to other races like elves and dwarves."
     }
+    averageLifespan: string [0..1]
 }
 
 subkind HighElf (instanceOf Race) specializes Elf {
@@ -84,6 +87,7 @@ subkind Gnome (instanceOf Race) specializes Characters.Character {
         @pt-br "Gnomos são criaturas pequenas e inteligentes, conhecidas por sua curiosidade, inventividade e habilidade em engenharia e tecnologia. Eles geralmente são amigáveis e excêntricos, com uma paixão por conhecimento e invenções."
         @en "Gnomes are small and intelligent creatures, known for their curiosity, inventiveness, and skill in engineering and technology. They are generally friendly and eccentric, with a passion for knowledge and inventions."
     }
+    averageLifespan: string [0..1]
 }
 
 subkind Troll (instanceOf Race) specializes Characters.Character {
@@ -95,6 +99,7 @@ subkind Troll (instanceOf Race) specializes Characters.Character {
         @pt-br "Trolls são criaturas grandes e fortes, frequentemente com pele verde ou acinzentada, presas proeminentes e, em algumas lendas, a capacidade de se regenerar rapidamente. Eles podem variar de tribos selvagens a seres mais civilizados, dependendo do universo de fantasia."
         @en "Trolls are large and strong creatures, often with green or grayish skin, prominent tusks, and, in some legends, the ability to regenerate rapidly. They can range from savage tribes to more civilized beings, depending on the fantasy universe."
     }
+    averageLifespan: string [0..1]
 }
 
 subkind Undead (instanceOf Race) specializes Characters.Character {
@@ -106,4 +111,28 @@ subkind Undead (instanceOf Race) specializes Characters.Character {
         @pt-br "Mortos-vivos são seres que já estiveram vivos, mas foram reanimados por meios mágicos ou sobrenaturais. Eles podem variar de esqueletos e zumbis a fantasmas e vampiros, e geralmente não possuem as mesmas necessidades ou emoções dos seres vivos."
         @en "Undead are beings that were once alive but have been reanimated by magical or supernatural means. They can range from skeletons and zombies to ghosts and vampires, and generally do not possess the same needs or emotions as living beings."
     }
+}
+
+subkind Dwarf (instanceOf Race) specializes Characters.Character {
+    label {
+        @pt-br "Anão"
+        @en "Dwarf"
+    }
+    description {
+        @pt-br "Anões são uma raça robusta e baixa estatura, conhecidos por sua habilidade em mineração, metalurgia e combate corpo a corpo. São frequentemente teimosos, leais e apreciadores de cerveja e tesouros."
+        @en "Dwarves are a stout and short-statured race, known for their skill in mining, metalworking, and melee combat. They are often stubborn, loyal, and fond of ale and treasures."
+    }
+    averageLifespan: string [0..1]
+}
+
+subkind Halfling (instanceOf Race) specializes Characters.Character {
+    label {
+        @pt-br "Halfling" // Ou Pequenino
+        @en "Halfling"
+    }
+    description {
+        @pt-br "Halflings são uma raça de pequena estatura, conhecidos por seu amor ao conforto, comida, e uma disposição geralmente alegre e discreta. Frequentemente são ágeis e possuem uma sorte natural."
+        @en "Halflings are a small-statured race, known for their love of comfort, food, and a generally cheerful and unassuming disposition. They are often nimble and possess a natural luck."
+    }
+    averageLifespan: string [0..1]
 }

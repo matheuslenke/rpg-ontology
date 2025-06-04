@@ -1,4 +1,7 @@
+import Characters
+
 package Magic
+
 
 kind Magic {
     label {
@@ -17,6 +20,8 @@ kind Magic {
     duration: string            // Duração do efeito (ex: 'Instantâneo', 'Concentração, até 1 min', '1 hora').
     targetType: string          // Tipo de alvo afetado (ex: 'Pessoal', 'Criatura', 'Objeto', 'Área').
     requiresConcentration: boolean // Se requer concentração do conjurador para manter o efeito.
+
+    [*] -- hasSpell -- [0..*] (spells) Spell
 }
 
 
@@ -62,4 +67,48 @@ subkind SpiritualMagic specializes Magic {
         @pt-br "Magia Espiritual lida com a interação, invocação ou manipulação de espíritos (ancestrais, elementais, da natureza), almas, ou a própria energia vital (chi/ki). Pode envolver comunicação com o além, práticas xamânicas, projeção astral, fortalecimento da alma ou manipulação da força vital para cura ou combate."
         @en "Spiritual Magic deals with the interaction, summoning, or manipulation of spirits (ancestral, elemental, nature), souls, or life energy itself (chi/ki). It can involve communication with the beyond, shamanic practices, astral projection, soul strengthening, or manipulation of life force for healing or combat."
     }
+}
+
+enum MagicSchool {
+    label {
+        @en "Magic School"
+        @pt-br "Escola de Magia"
+    }
+    description {
+        @en "A categorization of spells based on their common effects or methods."
+        @pt-br "Uma categorização de feitiços baseada em seus efeitos ou métodos comuns."
+    }
+    Abjuration, // Protective spells
+    Conjuration, // Spells that transport or summon
+    Divination, // Spells that reveal information
+    Enchantment, // Spells that affect minds
+    Evocation, // Spells that manipulate energy or create something from nothing
+    Illusion, // Spells that deceive senses or minds
+    Necromancy, // Spells that manipulate life, death, and life force
+    Transmutation // Spells that change the subject's form or properties
+}
+
+kind Spell {
+    label {
+        @en "Spell"
+        @pt-br "Feitiço"
+    }
+    description {
+        @en "A specific magical formula or incantation that produces a defined magical effect."
+        @pt-br "Uma fórmula mágica específica ou encantamento que produz um efeito mágico definido."
+    }
+
+    spellName: string [1]
+    requiredMagicPotency: number [0..1] // e.g., character level or specific skill level
+    manaCost: number [0..1]
+    castingTime: string [1]
+    range: string [1]
+    duration: string [1]
+    effectDescription: string [1]
+    school: MagicSchool [1]
+
+    [1] -- isCategorizedUnder -- [1..*] Magic // A spell is a form of a broader Magic type
+    // Relation to Character (who knows/can cast the spell)
+    // This relation might be better defined in Characters package or as an external relation:
+    // External relation example: relation Characters.Character [*] -- knowsSpell -- [*] Spell
 }

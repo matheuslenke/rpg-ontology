@@ -1,5 +1,6 @@
 import Characters
 import Skills
+import Items
 
 package Profession
 
@@ -29,16 +30,15 @@ type Profession {
         @en "A category for Characters defined by skills related to a specific area or occupation."
     }
 
-    level: ProfessionSkillLevel
-
     [*] -- requiresSkills -- [0..*] skills.Skill
     (professions) [*] -- [1..*] ({ ordered } mostImportantAttributes) skills.Attribute
+    [*] -- requiresTool -- [0..*] Items.Item
 }
 
 genset TypesOfProfession {
     general Characters.Character
     categorizer Profession
-    specifics Blacksmith, Herbalist, Tailor, PotionBrewer, Merchant, Guard, Scholar, Farmer, Miner, Carpenter
+    specifics Blacksmith, Herbalist, Tailor, PotionBrewer, Merchant, Guard, Scholar, Farmer, Miner, Carpenter, Cook, Innkeeper, Scribe
 }
 
 phase Blacksmith (instanceOf Profession) specializes Characters.Character {
@@ -50,6 +50,7 @@ phase Blacksmith (instanceOf Profession) specializes Characters.Character {
          @pt-br "Um artesão capaz de executar competentemente a forja e reparo de objetos de metal, como armas, armaduras e ferramentas. O indivíduo é um ferreiro enquanto possui as habilidades necessárias para executar tais tarefas."
          @en "An artisan capable of competently forging and repairing metal objects, such as weapons, armor, and tools. The individual is a blacksmith as long as they possess the necessary skills to perform such tasks."
      }
+     currentSkillLevel: ProfessionSkillLevel [1]
  }
 
 phase Herbalist (instanceOf Profession) specializes Characters.Character {
@@ -61,6 +62,7 @@ phase Herbalist (instanceOf Profession) specializes Characters.Character {
          @pt-br "Um indivíduo com conhecimento em plantas e ervas, utilizando-as para fins medicinais, culinários ou outros."
          @en "An individual with knowledge of plants and herbs, using them for medicinal, culinary, or other purposes."
      }
+     currentSkillLevel: ProfessionSkillLevel [1]
  }
 
 phase Tailor (instanceOf Profession) specializes Characters.Character {
@@ -72,6 +74,7 @@ phase Tailor (instanceOf Profession) specializes Characters.Character {
          @pt-br "Um artesão especializado na confecção, reparo e alteração de roupas e vestimentas."
          @en "An artisan specialized in the making, repair, and alteration of clothes and garments."
      }
+     currentSkillLevel: ProfessionSkillLevel [1]
  }
 
 phase PotionBrewer (instanceOf Profession) specializes Characters.Character {
@@ -83,6 +86,7 @@ phase PotionBrewer (instanceOf Profession) specializes Characters.Character {
          @pt-br "Um especialista na arte de misturar ingredientes para criar poções com efeitos mágicos ou alquímicos."
          @en "A specialist in the art of mixing ingredients to create potions with magical or alchemical effects."
      }
+     currentSkillLevel: ProfessionSkillLevel [1]
  }
 
 phase Merchant (instanceOf Profession) specializes Characters.Character {
@@ -94,6 +98,7 @@ phase Merchant (instanceOf Profession) specializes Characters.Character {
          @pt-br "Um indivíduo envolvido na compra e venda de bens e serviços."
          @en "An individual involved in the buying and selling of goods and services."
      }
+     currentSkillLevel: ProfessionSkillLevel [1]
  }
 
 phase Guard (instanceOf Profession) specializes Characters.Character {
@@ -105,6 +110,7 @@ phase Guard (instanceOf Profession) specializes Characters.Character {
          @pt-br "Um indivíduo responsável por proteger pessoas, lugares ou propriedades."
          @en "An individual responsible for protecting people, places, or property."
      }
+     currentSkillLevel: ProfessionSkillLevel [1]
  }
 
 phase Scholar (instanceOf Profession) specializes Characters.Character {
@@ -116,6 +122,7 @@ phase Scholar (instanceOf Profession) specializes Characters.Character {
          @pt-br "Uma pessoa dedicada ao estudo e ao conhecimento em uma ou mais áreas."
          @en "A person dedicated to study and knowledge in one or more areas."
      }
+     currentSkillLevel: ProfessionSkillLevel [1]
  }
 
 phase Farmer (instanceOf Profession) specializes Characters.Character {
@@ -127,6 +134,7 @@ phase Farmer (instanceOf Profession) specializes Characters.Character {
          @pt-br "Um indivíduo que cultiva a terra e cria animais para obter alimento e outros recursos."
          @en "An individual who cultivates land and raises animals to obtain food and other resources."
      }
+     currentSkillLevel: ProfessionSkillLevel [1]
  }
 
 phase Miner (instanceOf Profession) specializes Characters.Character {
@@ -138,6 +146,7 @@ phase Miner (instanceOf Profession) specializes Characters.Character {
          @pt-br "Um trabalhador que extrai minerais e outros materiais valiosos do subsolo."
          @en "A worker who extracts minerals and other valuable materials from underground."
      }
+     currentSkillLevel: ProfessionSkillLevel [1]
  }
 
 phase Carpenter (instanceOf Profession) specializes Characters.Character {
@@ -149,4 +158,41 @@ phase Carpenter (instanceOf Profession) specializes Characters.Character {
          @pt-br "Um artesão que trabalha com madeira, construindo, reparando e instalando estruturas e objetos."
          @en "An artisan who works with wood, building, repairing, and installing structures and objects."
      }
+     currentSkillLevel: ProfessionSkillLevel [1]
  }
+
+phase Cook (instanceOf Profession) specializes Characters.Character {
+    label {
+        @pt-br "Cozinheiro"
+        @en "Cook"
+    }
+    description {
+        @pt-br "Um indivíduo especializado na preparação de alimentos e refeições."
+        @en "An individual specializing in the preparation of food and meals."
+    }
+    currentSkillLevel: ProfessionSkillLevel [1]
+}
+
+phase Innkeeper (instanceOf Profession) specializes Characters.Character {
+    label {
+        @pt-br "Estalajadeiro"
+        @en "Innkeeper"
+    }
+    description {
+        @pt-br "Um indivíduo que administra uma estalagem, fornecendo alojamento, comida e bebida para viajantes."
+        @en "An individual who manages an inn, providing lodging, food, and drink to travelers."
+    }
+    currentSkillLevel: ProfessionSkillLevel [1]
+}
+
+phase Scribe (instanceOf Profession) specializes Characters.Character {
+    label {
+        @pt-br "Escriba"
+        @en "Scribe"
+    }
+    description {
+        @pt-br "Um indivíduo habilidoso na escrita, cópia de textos e manutenção de registros."
+        @en "An individual skilled in writing, copying texts, and maintaining records."
+    }
+    currentSkillLevel: ProfessionSkillLevel [1]
+}

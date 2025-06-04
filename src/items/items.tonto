@@ -1,4 +1,7 @@
+import Magic
+
 package Items
+
 
 // ---------------     Items     ---------------
 kind Item {
@@ -13,6 +16,21 @@ kind Item {
     name: string        // Nome do item.
     details: string     // Descrição detalhada ou 'flavor text' do item.
     weight: number      // Peso do item, afetando capacidade de carga.
+    [*] -- exhibitsProperty -- [0..*] ItemProperty
+}
+
+mode ItemProperty {
+    label {
+        @en "Item Property"
+        @pt-br "Propriedade de Item"
+    }
+    description {
+        @en "A special characteristic, magical effect, or bonus inherent to or imbued in an item."
+        @pt-br "Uma característica especial, efeito mágico ou bônus inerente ou imbuído em um item."
+    }
+    propertyName: string [1]            // e.g., "Increased Agility", "Fire Resistance", "Grants Invisibility"
+    propertyEffectDescription: string [1] // Detailed description of what the property does
+    intensity: string [0..1]            // e.g., "+5", "2d6", "Major", "Lasts 1 hour"
 }
 
 type Equipment specializes Item { 
@@ -299,9 +317,9 @@ subkind Necklace specializes Accessory {
     }
 }
 
-disjoint complete genset TypesOfAmulets {
-    general Amulet 
-    specifics Ring, Necklace
+disjoint complete genset TypesOfAccessories {
+    general Accessory
+    specifics Amulet, Ring, Necklace
 }
 
 subkind Consumable specializes Item {
@@ -397,6 +415,32 @@ subkind Scroll specializes Consumable {
         @pt-br "Um pergaminho é um item consumível, tipicamente um rolo de papel ou material similar com inscrições (frequentemente mágicas). Permite ao usuário ativar um efeito específico (como conjurar um feitiço) uma única vez, após o qual o pergaminho é geralmente destruído ou se torna inerte."
         @en "A scroll is a consumable item, typically a roll of paper or similar material with inscriptions (often magical). It allows the user to activate a specific effect (such as casting a spell) a single time, after which the scroll is usually destroyed or becomes inert."
     }
+    referencesSpell: Magic.Spell [0..1]
+}
+
+subkind CraftingMaterial specializes Item {
+    label {
+        @en "Crafting Material"
+        @pt-br "Material de Criação"
+    }
+    description {
+        @en "An item primarily used as a component or ingredient in crafting, alchemy, or other professions."
+        @pt-br "Um item primariamente usado como componente ou ingrediente em criação, alquimia ou outras profissões."
+    }
+    materialType: string [0..1] // e.g., Herb, Ore, Cloth, Leather, Gem, Essence
+    rarityLevel: number [0..1]  // e.g., 1 (Common) to 5 (Legendary)
+}
+
+subkind Currency specializes Item {
+    label {
+        @en "Currency"
+        @pt-br "Moeda"
+    }
+    description {
+        @en "An item that serves as a medium of exchange, such as coins or valuable tokens."
+        @pt-br "Um item que serve como meio de troca, como moedas ou valiosos tokens."
+    }
+    monetaryValue: number [1] // Value in a base currency unit (e.g., copper pieces)
 }
 
 // ---------------     Inventory     ---------------

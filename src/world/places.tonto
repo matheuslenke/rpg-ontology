@@ -1,3 +1,5 @@
+import Characters
+
 package Places
 
 datatype Coordinate {
@@ -26,6 +28,29 @@ kind Place {
     // --- Attributes ---
     name: string           // O nome próprio que identifica o lugar.
     position: Coordinate   // As coordenadas que especificam a localização do lugar.
+    terrain: TerrainType [0..1] // The general terrain of the place
+    [*] <o>-- contains -- [0..*] (containedPlaces) Place // A place can contain other places
+}
+
+enum TerrainType {
+    label {
+        @en "Terrain Type"
+        @pt-br "Tipo de Terreno"
+    }
+    description {
+        @en "Describes the dominant physical or environmental characteristic of a place."
+        @pt-br "Descreve a característica física ou ambiental dominante de um lugar."
+    }
+    Urban, // Cities, towns
+    Rural, // Farmlands, countryside
+    Forest, // Woodlands, jungles
+    Mountain, // Peaks, ranges, hills
+    Swamp, // Marshes, bogs
+    Desert, // Arid, sandy regions
+    Plains, // Grasslands, savannas
+    Aquatic, // Oceans, lakes, rivers
+    Underground, // Caves, caverns
+    Extraplanar // Other dimensions or planes
 }
 
 subkind Realm specializes Place {
@@ -81,4 +106,31 @@ subkind Village specializes Place {
         @pt-br "Uma vila (ou aldeia) é um pequeno assentamento humano, tipicamente localizado em área rural e consideravelmente menor que uma cidade. Frequentemente baseada em agricultura, pesca ou extração de recursos locais."
         @en "A village (or hamlet) is a small human settlement, typically located in a rural area and considerably smaller than a city. Often based on agriculture, fishing, or extraction of local resources."
     }
+}
+
+subkind Building specializes Place {
+    label {
+        @en "Building"
+        @pt-br "Construção"
+    }
+    description {
+        @en "A structure, such as a house, shop, temple, or castle, typically within a larger settlement."
+        @pt-br "Uma estrutura, como uma casa, loja, templo ou castelo, geralmente dentro de um assentamento maior."
+    }
+    buildingType: string [0..1] // E.g., Tavern, Shop, House, Castle, Temple
+    // Potential relation: [0..1] -- ownedBy -- [0..1] Characters.Individual
+}
+
+subkind Dungeon specializes Place {
+    label {
+        @en "Dungeon"
+        @pt-br "Masmorra"
+    }
+    description {
+        @en "An enclosed, often underground, location typically filled with challenges, monsters, and treasures."
+        @pt-br "Um local fechado, frequentemente subterrâneo, normalmente repleto de desafios, monstros e tesouros."
+    }
+    dangerLevel: number [0..1]
+    primaryTheme: string [0..1] // E.g., Undead Crypt, Goblin Caves, Ancient Ruins
+    // Potential relation: [*] -- inhabitedBy -- [0..*] Characters.Monster
 }

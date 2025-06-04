@@ -11,12 +11,13 @@ type Class {
         @pt-br "Em jogos de RPG, uma classe é uma categoria de personagens que compartilham habilidades e características comuns. Uma classe dá habilidades (ou perícias) exclusivas para o personagem de cada classe."
         @en "In RPG games, a class is a category of characters who share common skills and characteristics. A class grants exclusive abilities (or proficiencies) to the character of that class."
     }
+    [*] -- grantsFeature -- [0..*] (features) ClassFeature
 }
 
 disjoint genset TypesOfClasses {
     general Character
     categorizer Class
-    specifics Warrior, Mage, Rogue, Cleric, Ranger, Paladin, Druid, Barbarian, Bard, Monk, Sorcerer, Warlock, Shaman
+    specifics Warrior, Mage, Rogue, Cleric, Ranger, Paladin, Druid, Barbarian, Bard, Monk, Sorcerer, Warlock, Shaman, Artificer, Psion
 }
 
 subkind Warrior (instanceOf Class) specializes Characters.Character {
@@ -160,4 +161,40 @@ subkind Shaman (instanceOf Class) specializes Characters.Character {
         @pt-br "Em jogos de RPG, o Xamã atua como um mediador entre o mundo físico e os reinos espirituais, comungando com espíritos ancestrais ou elementais. Utilizam totens, conjuram magias elementais (fogo, terra, água, ar), curam aliados e podem até mesmo aprimorar o combate corpo a corpo, servindo como uma classe híbrida versátil (comum em jogos como World of Warcraft)."
         @en "In RPG games, the Shaman acts as a mediator between the physical world and the spirit realms, communing with ancestral or elemental spirits. They utilize totems, cast elemental spells (fire, earth, water, air), heal allies, and may even enhance melee combat, serving as a versatile hybrid class (common in games like World of Warcraft)."
     }
+}
+
+subkind Artificer (instanceOf Class) specializes Characters.Character {
+    label {
+        @en "Artificer"
+        @pt-br "Artífice"
+    }
+    description {
+        @en "Artificers are masters of invention, using ingenuity and magic to create wondrous items, often blending arcane principles with technological skill."
+        @pt-br "Artífices são mestres da invenção, usando engenhosidade e magia para criar itens maravilhosos, frequentemente misturando princípios arcanos com habilidade tecnológica."
+    }
+}
+
+subkind Psion (instanceOf Class) specializes Characters.Character {
+    label {
+        @en "Psion"
+        @pt-br "Psionista"
+    }
+    description {
+        @en "Psions wield power derived from the mind, manifesting extraordinary mental abilities such as telekinesis, telepathy, and other psychic phenomena."
+        @pt-br "Psionistas empunham poder derivado da mente, manifestando habilidades mentais extraordinárias como telecinesia, telepatia e outros fenômenos psíquicos."
+    }
+}
+
+kind ClassFeature {
+    label {
+        @en "Class Feature"
+        @pt-br "Característica de Classe"
+    }
+    description {
+        @en "A special ability, trait, or proficiency granted by an adventuring class, often at a specific level."
+        @pt-br "Uma habilidade especial, traço ou proficiência concedida por uma classe de aventureiro, frequentemente em um nível específico."
+    }
+    featureName: string [1]
+    description: string [1]
+    levelAcquired: number [0..1]
 }

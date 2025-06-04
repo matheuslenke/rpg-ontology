@@ -9,8 +9,10 @@ mode Skill {
         @pt-br "Representa uma habilidade física ou mágica que um personagem pode utilizar em combate ou para outras ações."
         @en "Represents a physical or magical ability that a character can use in combat or for other actions."
     }
+    skillName: string [1] // Added: Specific name for the skill instance
     level: number     // Nível da habilidade.
     _type: SkillType [1..*] // Tipo(s) elemental(is) ou de natureza da habilidade.
+    governingAttribute: Attribute [0..1] // Added: Optional link to a governing attribute
 }
 
 enum SkillType {
@@ -29,7 +31,14 @@ enum SkillType {
     Poison,     // Veneno
     Evil,       // Maligno / Sombrio
     Forbidden,  // Proibido
-    Protection  // Proteção / Defensivo
+    Protection, // Proteção / Defensivo
+    Lightning,  // Elétrico / Raio - Added
+    Acid,       // Ácido / Corrosivo - Added
+    Sonic,      // Sônico / Som - Added
+    Force,      // Força (energética, não física) / Cinético - Added
+    Healing,    // Cura - Added
+    PhysicalCombat, // Combate Físico (geral) - Added
+    StealthTechnique // Técnica de Furtividade - Added
 }
 
 type Attribute {
@@ -113,4 +122,28 @@ quality Charisma (instanceOf Attribute) {
         @en "Represents the force of personality, persuasiveness, and leadership ability of a character, affecting social interactions, will-based magic (e.g., Bard/Sorcerer), etc."
     }
     qualityValue: number // O valor numérico do atributo Carisma.
+}
+
+quality Luck (instanceOf Attribute) {
+    label {
+        @en "Luck"
+        @pt-br "Sorte"
+    }
+    description {
+        @en "Represents a character\'s fortune or chance, subtly influencing outcomes."
+        @pt-br "Representa a fortuna ou acaso de um personagem, influenciando sutilmente os resultados."
+    }
+    qualityValue: number
+}
+
+quality Perception (instanceOf Attribute) {
+    label {
+        @en "Perception"
+        @pt-br "Percepção"
+    }
+    description {
+        @en "Represents a character\'s ability to notice details, detect hidden things, and general awareness of surroundings. Complements Wisdom which can be more about insight."
+        @pt-br "Representa a habilidade de um personagem de notar detalhes, detectar coisas escondidas e consciência geral do ambiente. Complementa Sabedoria que pode ser mais sobre discernimento."
+    }
+    qualityValue: number
 }

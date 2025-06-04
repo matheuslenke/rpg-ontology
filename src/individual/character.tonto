@@ -2,6 +2,7 @@ import Races
 import Skills
 import Items
 import Places
+import Classes
 
 package Characters
 
@@ -22,6 +23,7 @@ kind Individual {
     (speakers) [*] -- speaks -- [0..*] (languagesSpoken) Language
     alignment: Alignment
     height: number
+    [*] -- exhibitsTrait -- [0..*] PersonalityTrait // Individuals can have multiple personality traits
 }
 
 kind Language {
@@ -95,6 +97,8 @@ subkind Character specializes Individual {
     @characterization [1] -- hasVitality -- [1] Skills.Vitality
     @characterization [1] -- hasCharisma -- [1] Skills.Charisma
     @characterization [1] -- hasWisdom -- [1] Skills.Wisdom
+    [*] -- hasProfession -- [1..*] Classes.Class
+    [*] -- worships -- [0..*] Deity // Characters can worship one or more deities, or none
 }
 
 subkind PlayableCharacter specializes Character {
@@ -161,3 +165,39 @@ phase DeadIndividual specializes Individual {
         @en "A dead individual is an individual who has ceased vital functions and is neither alive nor undead." 
     }
 }
+
+// <-- Adicionado pela LLM -->
+
+kind Deity {
+    label {
+        @en "Deity"
+        @pt-br "Divindade"
+    }
+    description {
+        @en "A divine being, such as a god or goddess, often worshipped by characters and possessing significant power over certain aspects of the world."
+        @pt-br "Um ser divino, como um deus ou deusa, frequentemente adorado por personagens e possuindo poder significativo sobre certos aspectos do mundo."
+    }
+    name: string [1]
+    alignment: Alignment [1]
+    divineDomain: string [1..*] { ordered } // e.g., War, Magic, Nature, Knowledge
+    holySymbolDescription: string [0..1]
+    // Could be related to Places.Place (e.g. sacred sites)
+    // Could be related to Magic.SacredMagic (as a source)
+}
+
+mode PersonalityTrait {
+    label {
+        @en "Personality Trait"
+        @pt-br "Traço de Personalidade"
+    }
+    description {
+        @en "A distinguishing quality or characteristic of an individual's personality."
+        @pt-br "Uma qualidade ou característica distintiva da personalidade de um indivíduo."
+    }
+    traitName: string [1] // e.g., Brave, Honest, Greedy, Cautious
+    descriptionAttribute: string [0..1]
+}
+
+disjoint complete genset CharacterPlayerControl where PlayableCharacter, NonPlayableCharacter specializes Character
+
+disjoint complete genset IndividualVitalStatus where AliveIndividual, UndeadIndividual, DeadIndividual specializes Individual
