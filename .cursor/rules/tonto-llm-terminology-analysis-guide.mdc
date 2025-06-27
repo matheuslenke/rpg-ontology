@@ -3,7 +3,7 @@ description:
 globs: 
 alwaysApply: false
 ---
-# LLM Guidance for Tonto (Textual Ontologies)
+# LLM Guidance for Understanding Tonto and Analyzing Ontology Terminology
 
 ## 1. Introduction to Tonto
 
@@ -19,11 +19,11 @@ The primary goal of Tonto is to facilitate the development of high-quality, prec
 
 ## 2. Core Grammar and Syntax of Tonto
 
-A Tonto ontology is defined in one or more `.tonto` files. Each file typically represents a single package.
+A Tonto ontology is defined in one or more `.tonto` files. Each file typically represents a single package. For precise grammar rules, refer to the Langium grammar files (e.g., `terminals.langium`, `tonto.langium`, `relations.langium`) within the Tonto language implementation.
 
 **2.1. Comments**
 - Single-line comments: `// This is a comment`
-- Multi-line comments: `/* This is a multi-line comment */` (Note: check Langium terminal rules, often only single-line are standard for DSLs unless explicitly defined). From `terminals.langium`, both `//` and `/* ... */` are supported.
+- Multi-line comments: `/* This is a multi-line comment */` (Supported as per `terminals.langium`).
 
 **2.2. Package Declaration**
 Every `.tonto` file starts with a package declaration. Packages define a namespace.
@@ -65,8 +65,8 @@ These keywords determine the ontological meta-properties of the class.
     *   `quantity`: For amounts of matter (e.g., `quantity WaterPortion`).
     *   `quality`: For qualia, values in a conceptual space (e.g., `quality Color`, `quality Weight`).
     *   `mode`: For intrinsic, non-describable properties (e.g., `mode Skill`, `mode Belief`). Often specialized into:
-        *   `intrinsicMode`: (If distinguished from extrinsic in grammar)
-        *   `extrinsicMode`: (If distinguished from intrinsic in grammar)
+        *   `intrinsicMode`
+        *   `extrinsicMode`
     *   `relator`: For truth-makers of material relations, connecting multiple individuals (e.g., `relator MarriageContract`, `relator Employment`).
     *   `type` / `powertype`: For higher-order types (types whose instances are types). (e.g., `type Species`, `powertype CarModelRange`).
 
@@ -249,7 +249,7 @@ Group specializations and define properties like disjointness and completeness.
     *   Use separate `.tonto` files (packages) for distinct conceptual domains or modules of your ontology.
     *   Employ `import` statements to reuse elements from other packages, promoting a clean and organized project structure.
 *   **Clear Naming:**
-    *   Choose descriptive and unambiguous names for packages, classes, attributes, relations, and generalization sets. Common conventions include PascalCase for types (Classes, Datatypes, Enums) and camelCase for attributes and relation ends, although Tonto's grammar is flexible with `ID`.
+    *   Choose descriptive and unambiguous names for packages, classes, attributes, relations, and generalization sets. Common conventions include PascalCase for types (Classes, Datatypes, Enums) and camelCase for attributes and relation ends, although Tonto's grammar is flexible with `ID`. Adherence to UFO naming principles is also encouraged (e.g., relators often named as nouns representing the relationship, roles reflecting the role played).
 *   **Accurate Stereotyping:**
     *   The choice of stereotype (e.g., `kind`, `phase`, `role`, `relator`) is crucial. It reflects the ontological nature of the concept according to UFO. Understand the UFO distinctions (rigidity, sortality, identity, dependence) to select the correct stereotype.
     *   Avoid overusing generic `class`. Specify the UFO stereotype as soon as the ontological nature is clear.
@@ -270,165 +270,106 @@ Group specializations and define properties like disjointness and completeness.
 *   **Consistency with UFO:**
     *   Continuously refer to UFO principles when modeling. Tonto is a syntax for these principles. For example, ensure that sortals ultimately specialize a unique kind (or other ultimate sortal type), and that rigidity constraints in inheritance hierarchies are respected.
 
-## 4. Guidelines for Extending Ontologies with Tonto
+## 4. Guidance for Terminology Analysis and Naming Suggestions in Tonto Ontologies
 
-Extending an existing Tonto ontology involves adding new classes, attributes, relations, and generalization sets while maintaining ontological soundness.
+This section guides the LLM in analyzing the terminology (names of classes, attributes, relations) within a Tonto ontology and providing constructive feedback or suggestions for improvement. The goal is to enhance the clarity, precision, and consistency of the ontology's vocabulary.
 
-**4.1. Understand the Existing Ontology and Domain**
-*   Thoroughly review the existing Tonto packages to understand the current scope, conventions, and key concepts.
-*   Ensure a clear grasp of the real-world domain you are trying to model or extend.
+**4.1. General Principles for Naming Evaluation**
 
-**4.2. Identify New Concepts and Their Ontological Nature (UFO Alignment)**
-*   What new entities, aspects, or events need to be represented?
-*   Crucially, determine their fundamental UFO category:
-    *   Is it a **Substantial** (like an object)?
-        *   Does it provide its own identity? -> Likely a `kind`.
-        *   Is it a collection of like things? -> `collective`.
-        *   Is it an amount of matter? -> `quantity`.
-    *   Is it a **Moment** (existentially dependent on other individuals)?
-        *   Is it a truth-maker for a material relation? -> `relator`.
-        *   Is it an inherent, possibly measurable characteristic? -> `quality` (e.g., weight, color).
-        *   Is it an intrinsic, non-measurable characteristic or disposition? -> `mode` (e.g., a skill, a medical condition).
-    *   Is it a **Perdurant** (something that happens in time)?
-        *   Unfolds with temporal parts? -> `event` or `process`.
-        *   A snapshot of the world? -> `situation`.
+When evaluating and suggesting names, consider the following:
 
-**4.3. Creating New Classes: Choosing the Right Stereotype**
+*   **Clarity:** Is the name easy to understand and unambiguous within its context?
+*   **Precision:** Does the name accurately and specifically reflect the concept, property, or relationship being modeled?
+*   **Consistency:**
+    *   Are naming conventions (e.g., PascalCase for types, camelCase for properties/ends) followed consistently?
+    *   Is there consistency in how similar concepts are named across the ontology?
+*   **Conciseness:** Is the name as short as possible without sacrificing clarity or precision?
+*   **Ontological Congruence:** Does the name align with the element's UFO stereotype and its ontological meaning (e.g., a `kind` name like `Person`, a `relator` name like `EmploymentContract`, a `phase` name like `Child`)?
+*   **Domain Relevance:** Does the name resonate with the terminology used by experts in the domain being modeled? Strive for a balance between domain language and ontological rigor.
+*   **Avoidance of Ambiguity:** Does the name avoid terms that could be easily misinterpreted or have multiple meanings in the context?
 
-1.  **Primary Substantials (Objects/Functional Complexes):**
-    *   If the new concept is a type of object that provides a principle of identity for its instances (you can count them, identify them, track them through changes):
-        ```tonto
-        kind NewKindName { /* ... attributes and relations ... */ }
-        // Example: kind Product
-        ```
+**4.2. Analyzing Class Terminology**
 
-2.  **Specializations of Existing Kinds:**
-    *   If the new concept is a subtype of an existing `kind` (or other ultimate sortal):
-        *   **Rigid (always applies if it applies at all):**
-            ```tonto
-            subkind NewSubkindName specializes ExistingKindName { /* ... */ }
-            // Example: subkind Book specializes Product
-            ```
-        *   **Anti-Rigid, Intrinsic Change (Phases):**
-            ```tonto
-            phase NewPhaseName specializes ExistingKindName { /* ... */ }
-            // Example: phase Infant specializes Person
-            ```
-        *   **Anti-Rigid, Relational (Roles):**
-            ```tonto
-            role NewRoleName specializes ExistingKindName { /* ... */ }
-            // Example: role Customer specializes Person
-            ```
-        *   **Anti-Rigid, Relational in context of an Event (Historical Roles):**
-            ```tonto
-            historicalRole NewHistoricalRoleName specializes ExistingKindName { /* ... */ }
-            // Example: historicalRole ConferenceSpeaker specializes Person
-            ```
+For each class:
 
-3.  **Non-Sortals (Grouping across Kinds):**
-    *   If the new concept groups individuals from *different* kinds based on shared properties:
-        *   **Rigid (essential properties):**
-            ```tonto
-            category NewCategoryName (of <nature>)? { /* ... */ }
-            // Example: category PhysicalAsset of objects
-            ```
-        *   **Anti-Rigid, Relational (Role Mixin):**
-            ```tonto
-            roleMixin NewRoleMixinName (of <nature>)? { /* ... */ }
-            // Example: roleMixin Borrower of objects
-            ```
-        *   **Anti-Rigid, Intrinsic (Phase Mixin):**
-            ```tonto
-            phaseMixin NewPhaseMixinName (of <nature>)? { /* ... */ }
-            // Example: phaseMixin DamagedItem of objects
-            ```
-        *   **Semi-Rigid (Mixin):**
-            ```tonto
-            mixin NewMixinName (of <nature>)? { /* ... */ }
-            ```
+1.  **Examine the Class Name in conjunction with its Definition:**
+    *   **Stereotype:** How well does the name reflect its OntoUML stereotype (e.g., `kind`, `role`, `phase`, `relator`, `event`)? For instance, a `relator` might be named `Marriage` or `Enrollment`. An `event` might be `PurchaseOrderSubmission`.
+    *   **Ontological Natures (if specified):** Is the name compatible with the declared `of <nature1>, ...`?
+    *   **Labels and Descriptions:** Do the provided `label` and `description` (in any language) support, clarify, or perhaps suggest a better term than the current class name?
+    *   **Attributes:** Do the names and types of its attributes coherently define the concept suggested by the class name? For example, a class named `Student` might have attributes like `studentID`, `major`.
+    *   **Relations:** Do the relations it participates in (and the roles suggested by relation end names) make sense for a class with this name? For example, a `Student` class might be related to a `Course` class via an `enrollsIn` relation.
+    *   **Specialization/Generalization:** If it `specializes` a superclass, is the name a more specific term? If it is a superclass, is its name appropriately general for its subclasses?
+    *   **Instantiation (`instanceOf`):** If it's an instance of a higher-order type, does the name fit the classification scheme?
 
-4.  **Relators (for Material Relations):**
-    *   If the new concept represents a relationship itself, which can have properties and endure through time:
-        ```tonto
-        relator NewRelatorName {
-            @mediation [<cardinality>] -- [<cardinality>] ParticipatingClass1
-            @mediation [<cardinality>] -- [<cardinality>] ParticipatingClass2
-            // ... other attributes of the relator ...
-        }
-        // Example: relator Employment {
-        //   @mediation [1] -- (employeeEnd) -- [1] Employee
-        //   @mediation [1] -- (employerEnd) -- [1] Organization
-        //   startDate: date
-        // }
-        ```
+2.  **Criteria for Suggesting Class Name Changes:**
+    *   The name is too generic (e.g., `Item`, `Data`, `Thing`) when its properties and stereotype suggest a more specific concept.
+    *   The name is misleading given its stereotype (e.g., naming a `relator` like an object `kind`, or an `event` like a `role`).
+    *   The name conflicts with UFO principles associated with its stereotype (e.g., a `phase` name that implies permanence).
+    *   Labels, descriptions, attributes, or relations strongly suggest a more common, precise, or domain-appropriate term.
+    *   Inconsistency with how similar concepts are named elsewhere in the ontology.
 
-5.  **Events/Situations:**
-    ```tonto
-    event NewEventName { /* attributes like timestamp, location */ }
-    situation NewSituationName { /* ... */ }
-    ```
+**4.3. Analyzing Attribute Terminology**
 
-6.  **Qualities/Modes:**
-    ```tonto
-    quality NewQualityName { /* typically linked to datatypes or value spaces */ }
-    mode NewModeName { /* ... */ }
-    ```
+For each attribute within a class:
 
-**4.4. Defining Attributes for New Classes**
-*   For each new class, identify its relevant properties.
-*   Define attributes using the syntax: `<name>: <DataType> [<cardinality>]? { <meta-properties> }?`
-    ```tonto
-    kind Vehicle {
-        registrationNumber: string [1] { const }
-        manufacturingYear: number
-        color: string [0..1]
-    }
-    ```
+1.  **Examine the Attribute Name in conjunction with its Definition:**
+    *   **Containing Class Context:** Does the name clearly indicate the property it represents *for that specific class*?
+    *   **Data Type:** Is the name consistent with its data type (e.g., `age` for `number`, `isArchived` for `boolean`, `registrationDate` for `date`)?
+    *   **Cardinality:** Does the name make sense with the cardinality (e.g., `phoneNumber` for `[1..*]` or `primaryPhoneNumber` for `[0..1]`)?
+    *   **Meta-properties (`const`, `derived`, `ordered`):**
+        *   If `derived`, does the name suggest it (e.g., `fullName` derived from `firstName` and `lastName`)?
+        *   If `const`, does the name imply immutability (e.g., `socialSecurityNumber`)?
+        *   If `ordered`, does the name suggest a sequence (e.g., `rankingHistory`)?
+    *   **Labels and Descriptions (if available for attributes in the future, or inferred from class description):** Do they clarify the attribute's purpose?
 
-**4.5. Defining Relationships for New Classes**
-*   Determine how the new class interacts with existing or other new classes.
-*   Use internal or external relation syntax.
-*   Choose the correct connector (`--`, `<>--`, `<o>--`).
-*   Apply OntoUML relation stereotypes (`@mediation`, `@componentOf`, etc.) if applicable.
-*   Specify cardinalities and role names for clarity.
+2.  **Criteria for Suggesting Attribute Name Changes:**
+    *   The name is vague or uninformative (e.g., `value`, `property`, `attr1`).
+    *   The name doesn't clearly fit the data type (e.g., `status` as a `number` if it's conceptually an enumeration like `Pending`, `Approved`).
+    *   The name could be more specific or less ambiguous (e.g., instead of just `date`, perhaps `creationDate` or `effectiveDate` depending on context).
+    *   Boolean attributes not clearly phrased as a question or state (e.g., prefer `isActive` or `isEnabled` over just `active`).
+    *   Inconsistency with attribute naming elsewhere.
 
-    Example: Adding `kind Engine` as a component of `kind Vehicle`:
-    ```tonto
-    kind Vehicle {
-        // ... attributes ...
-        @componentOf [1] <o>-- hasEngine -- [1] Engine
-    }
+**4.4. Analyzing Relation Terminology**
 
-    kind Engine {
-        engineCode: string
-    }
-    ```
+For each relation (internal or external):
 
-**4.6. Establishing Generalizations**
-*   If a new class is a subtype of an existing class, use `specializes`.
-*   If a group of new or existing classes form a partition or categorization under a common superclass, define a `genset`.
+1.  **Examine Relation Name and End Names in conjunction with its Definition:**
+    *   **Relation Name (if present):**
+        *   Does it accurately describe the nature of the relationship between the source and target classes?
+        *   Is it consistent with the **relation stereotype** (e.g., `@mediation` for a relator's connection, `@componentOf` for parthood)? A material relation might be named with a verb phrase (e.g., `employs`).
+    *   **Relation End Names (if present):**
+        *   Do they clearly indicate the role played by the class at that end of the relation, from the perspective of the *other* class?
+        *   Are they descriptive and unambiguous? (e.g., for a `Person -- employedBy -- Organization` relation, end names could be `employees` at the `Person` side (role of Organization) and `employer` at the `Organization` side (role of Person)).
+    *   **Connected Classes:** Are the names appropriate for the types of classes being related?
+    *   **Cardinalities:** Do the names align with the specified cardinalities? (e.g., an end name `manager` might imply a `[0..1]` or `[1]` cardinality from the perspective of the `Employee`).
+    *   **Relation Stereotype:** Does the chosen stereotype (e.g., `@material`, `@formal`, `@componentOf`, `@mediation`) semantically fit with the names used?
 
-    Example: Adding `Car` and `Truck` as types of `Vehicle`.
-    ```tonto
-    kind Vehicle { /* ... */ }
-    kind Car specializes Vehicle { /* ... */ }
-    kind Truck specializes Vehicle { /* ... */ }
+2.  **Criteria for Suggesting Relation/End Name Changes:**
+    *   The relation name is missing, and adding one would significantly improve clarity.
+    *   The relation name or end names are too generic (e.g., `has`, `isRelatedTo`, `link`).
+    *   End names are not intuitive or do not clearly express the role from the counterparty's perspective.
+    *   Verb-based relation names are passive when active voice would be clearer, or vice-versa.
+    *   Names conflict with the semantic meaning of the relation stereotype.
+    *   Names are not idiomatic for the domain or are easily confusable.
+    *   Inconsistency in how similar relationships are named.
 
-    disjoint complete genset VehicleTypes where Car, Truck specializes Vehicle
-    ```
+**4.5. Output Format for Terminology Feedback**
 
-**4.7. Considering Ontological Natures**
-*   For new non-sortal classes, use `of <nature>` to constrain their instances if necessary.
-    ```tonto
-    category Asset of objects
-    ```
+When providing feedback on terminology:
 
-**4.8. Iterate and Validate**
-*   Ontology modeling is iterative. After adding new elements, review them:
-    *   Are the stereotypes correct according to UFO?
-    *   Are relationships and cardinalities accurate?
-    *   Are there any validation errors from the Tonto tooling?
-    *   Does the extension make sense in the overall context of the ontology?
-*   Refer to the `docs/tonto.md` paper and UFO literature for guidance on ontological principles.
+1.  **Identify the Element:** Clearly state which element is being discussed (e.g., "Class `CustomerData`", "Attribute `val` in class `Order`", "Relation between `Product` and `Supplier` with ends `suppliedItems` and `vendor`").
+2.  **State the Current Name(s):** Quote the current name(s).
+3.  **Provide Rationale:** Concisely explain *why* the current name might be suboptimal or could be improved. Refer to specific principles (clarity, precision, ontological congruence, consistency with attributes/relations, etc.).
+4.  **Suggest Alternatives (if applicable):**
+    *   Offer one or more specific alternative names.
+    *   Briefly explain why the suggested alternative(s) might be better.
+5.  **Affirm Good Names:** If a name is already clear, precise, and appropriate, acknowledge this. Positive feedback is also valuable.
 
-By following these guidelines, an LLM can be effectively guided to understand Tonto and assist in extending ontologies in a well-founded manner. 
+**Example of Feedback:**
+
+*   **Element:** Class `InfoHolder`
+*   **Current Name:** `InfoHolder`
+*   **Rationale:** The name `InfoHolder` is very generic. The class has a stereotype `relator` and its attributes `startDate`, `endDate` and relations to `Person` and `Project` (named `member` and `assignedProject`) suggest it represents an assignment or membership over time.
+*   **Suggestion(s):** Consider `ProjectMembership` or `Assignment`. `ProjectMembership` more directly reflects the role as a `relator` connecting a `Person` to a `Project`.
+
+By following these guidelines, an LLM can be effectively guided to understand Tonto and assist in analyzing and improving the terminology of ontologies in a well-founded manner. 
